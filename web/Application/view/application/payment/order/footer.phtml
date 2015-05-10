@@ -1,0 +1,20 @@
+<div class="text-center footer">
+  <br>
+  <h3><?php echo $this->partnerData['partner_nombre'] ?></h3>
+  <p>&copy;<?php echo date('Y')?></p>
+  <p><a href="http://biialab.org/about">Nosotros</a> |
+  <a href="http://biialab.org/privacity">Políticas de privacidad</a> |
+  <a href="http://biialab.org/terms">Términos de uso</a></p>
+  <?php if(!empty($this->partnerData['partner_social'])): ?>
+  <?php $social = json_decode($this->partnerData['partner_social'], true)?>
+  <p class="social_e fs2em">
+     <?php if(is_array($social)): ?> 
+        <?php foreach($social as $value): ?> 
+            <?php if($value['status']): ?> 
+                <?php echo $value['contenido'] ?>
+            <?php endif ?>
+        <?php endforeach; ?>
+    <?php endif ?>
+  </p>
+  <?php endif; ?>
+</div>

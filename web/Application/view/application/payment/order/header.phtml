@@ -1,0 +1,21 @@
+<nav role="navigation" class="navbar navbar-default navbar-fixed-top nav_biia">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">
+            <?php if(\Util\Util\Util::isCustomFront($this->partnerData['partner_slug'])): ?>
+                <img style="width:30px " src="<?php echo $this->server('static') . 's/partners/' . $this->partnerData['partner_slug'].'/images/'.$this->partnerData['partner_logo'] ?>" alt="Brand">
+            <?php else: ?>
+                <?php //echo $this->partner['partner_nombre'] ?>
+            <?php endif; ?>
+            </a><a href="#" class="navbar-brand"><?php echo $this->partnerData['partner_nombre'] ?></a>
+
+      </div>
+
+    </div>
+  </nav>

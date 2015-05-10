@@ -1,0 +1,32 @@
+<div class="row" style="margin-top: 80px;">
+    <div class="col-md-12">
+        <div class="data_pagos border_form">
+            <div class="bgBlanco cnt_form text-center">
+                <h1>Gracias por registrarte</h1>
+                <p>Luego de realizar el pago en el lugar elegido se procederá a activar tu cuenta en las próximas 24 horas.</p>
+            </div>
+
+            <?php if(!empty($this->productos)): ?>
+            <div style="width: 60%; margin: 0px auto;">
+                <?php foreach($this->productos as $value): ?>
+                <div class="panel panel-default">
+                  <div class="panel-heading"><?php echo $value['tips_nombre'] ?></div>
+                  <div class="panel-body">
+                    <?php echo $value['tips_detalle'] ?>
+                  </div>
+                </div>
+                <?php endforeach?>
+            </div>
+            <?php endif; ?>
+
+            <p style="margin-top: 1em;" class="text-center"><a class="btn btn-lg bNaranja mayus text-center" id="btnBack" href="<?php echo $this->uri ?>">Ir a <?php if(!empty($this->partner['partner_nombre'])): echo $this->partner['partner_nombre']; else: echo 'Home'; endif; ?></a></p>
+
+        </div>
+
+    </div>
+</div>
+<?php echo $this->headLink()->prependStylesheet($this->server('static') . 's/css/jquery.alerts.css'); ?>
+<?php echo $this->headScript()->prependFile($this->server('static') . 's/js/jquery.alerts.js'); ?>
+<script>
+var producto = "<?php (isset($value['tips_id'])) ? $value['tips_id'] : 'No'; ?>";
+</script>

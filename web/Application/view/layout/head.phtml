@@ -1,0 +1,38 @@
+
+<head>
+    <meta charset="utf-8">
+    <?php echo $this->headTitle('Biia')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+    <?php echo $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <!-- Le styles -->
+    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->server('static') . 's/img/favicon.ico'))
+                    ->prependStylesheet('//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css')
+                    ->prependStylesheet( (\Util\Util\Util::isCustomFront($this->aliasPartner))? 
+                            $this->server('static') . 's/partners/' . $this->aliasPartner.'/style.css' 
+                            : $this->server('static') . 's/css/style.css')
+                    ->prependStylesheet($this->server('static') . 's/css/bootstrap-theme.min.css')
+                    ->prependStylesheet($this->server('static') . 's/css/bootstrap.min.css')
+                    ->prependStylesheet('//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css')
+                    ?>
+
+    <!-- Scripts -->
+    <?php echo $this->headScript()
+        ->prependFile($this->server('static') . 's/js/index.js')
+        ->prependFile($this->server('static') . 's/js/main.js')
+        ->prependFile($this->server('static') . 's/js/jquery.validate.min.js')
+        ->prependFile($this->server('static') . 's/js/bootstrap.min.js')
+        ->prependFile('//code.jquery.com/ui/1.11.2/jquery-ui.js')
+        ->prependFile($this->server('static') . 's/js/jquery.min.js')
+    ; ?>
+    <script>
+        og.getStatic = '<?php echo $this->server('static')?>';
+        og.getContent = '<?php echo $this->server('content')?>';
+        og.site = {
+            ip:'<?php echo \Util\Util\Util::getRealIP() ?>'
+        }
+    </script>
+</head>
