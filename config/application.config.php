@@ -9,7 +9,6 @@ return array(
     'modules' => array(
         'Util',
         'Yoson',
-        'Auth',
         'Sys',
         'Application', 
     ),
