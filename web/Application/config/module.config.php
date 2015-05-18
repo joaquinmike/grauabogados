@@ -20,77 +20,24 @@ return array(
                     ),
                 ),
             ),
+            'Test' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/test',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Test',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
-            
-            'RouteOrderPending' => array(
-                'type' => 'segment',
-                'options' => array(
-                    'route' => '/:pgp/pending[/:pa_id][/]',
-                    'constraints' => array(
-                        'alias' => '[a-zA-Z0-9_-]*',
-                        'idPay' => '[a-zA-Z0-9_-]*',
-                        's' => '[a-zA-Z0-9_-]*',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Payment',
-                        'action' => 'pending',
-                    //'locale' => 'us',
-                    ),
-                ),
-            ),
-            'RouteOrderComplete' => array(
-                'type' => 'segment',
-                'options' => array(
-                    'route' => '/:pgp/complete[/:pa_id][/]',
-                    'constraints' => array(
-                        'alias' => '[a-zA-Z0-9_-]*',
-                        'idPay' => '[a-zA-Z0-9_-]*',
-                        's' => '[a-zA-Z0-9_-]*',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Payment',
-                        'action' => 'complete',
-                    //'locale' => 'us',
-                    ),
-                ),
-            ),
-            'RouteOrderCancel' => array(
-                'type' => 'segment',
-                'options' => array(
-                    'route' => '/:pgp/cancel[/:pa_id][/]',
-                    'constraints' => array(
-                        'alias' => '[a-zA-Z0-9_-]*',
-                        'idPay' => '[a-zA-Z0-9_-]*',
-                        's' => '[a-zA-Z0-9_-]*',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Payment',
-                        'action' => 'cancel',
-                    //'locale' => 'us',
-                    ),
-                ),
-            ),
-            'RouteOrder' => array(
-                'type' => 'segment',
-                'options' => array(
-                    'route' => '/:payment[/:alias][/:id][/]',
-                    'constraints' => array(
-                        'alias' => '[a-zA-Z0-9_-]*',
-                    ),
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Payment',
-                        'action' => 'order',
-                    //'locale' => 'us',
-                    ),
-                ),
-            ),
             'application' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/pgp',
+                    'route'    => '/index',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
                         'controller'    => 'Index',
@@ -141,10 +88,18 @@ return array(
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'layout/head'             => __DIR__ . '/../view/layout/web/head.phtml',
+            'layout/header'           => __DIR__ . '/../view/layout/web/header.phtml',
+            'layout/footer'           => __DIR__ . '/../view/layout/web/footer.phtml',
+            'layout/layout'           => __DIR__ . '/../view/layout/web/layout.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            
+            'layout/head/authentication'             => __DIR__ . '/../view/layout/authentication/head.phtml',
+            'layout/header/authentication'           => __DIR__ . '/../view/layout/authentication/header.phtml',
+            'layout/footer/authentication'           => __DIR__ . '/../view/layout/authentication/footer.phtml',
+            'layout/layout/authentication'           => __DIR__ . '/../view/layout/authentication/layout.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',

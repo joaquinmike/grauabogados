@@ -7,6 +7,7 @@
  */
 return array(
     'modules' => array(
+        'Authentication',
         'Util',
         'Yoson',
         'Sys',
