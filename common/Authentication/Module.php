@@ -82,12 +82,11 @@ class Module {
        
         $viewModel->isAuth = $authService->hasIdentity();   
         if (!$authService->hasIdentity() 
-            && empty($_SESSION['cit_session']['storage'])) {  
+            && empty($_SESSION['cit_session'])) {  
            
         } elseif ($authService->hasIdentity() 
-                || !empty($_SESSION['cit_session']['storage'])) {
+                || !empty($_SESSION['cit_session'])) {
             
-            var_dump('okas');
             $user = $authService->getIdentity(); 
             if (!empty($_SESSION['cit_session']['storage']) 
                && !is_array($user) 
@@ -100,9 +99,8 @@ class Module {
                 $viewModel->isAuth = true;
                 
             } else {
-                $_SESSION['cit_session']['storage'] = $user['user_id'];
+               // $_SESSION['cit_session']['storage'] = $user['user_id'];
             }
-            
             
             $container = new Container('SBIIA');
             $container->user = $user;
