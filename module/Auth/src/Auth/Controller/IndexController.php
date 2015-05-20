@@ -7,21 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Application\Controller;
+namespace Auth\Controller;
 
-use Util\Controller\BaseController;
+use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-
-class IndexController extends BaseController
+class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $userId = $this->layout()->dataUser['us_id'];
-        $userEmail = $this->layout()->dataUser['us_email'];
-        return new ViewModel(array(
-            'userId' => $userId,
-            'userEmail' => $userEmail,
-        ));
+        return new ViewModel();
     }
 }

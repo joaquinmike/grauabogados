@@ -10,7 +10,7 @@ class AuthStorageFactory implements FactoryInterface
 {
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $storage = new AuthStorage('my_session');
+        $storage = new AuthStorage('cit_session');
         $storage->setServiceLocator($serviceLocator);
         $storage->setDbHandler();
 

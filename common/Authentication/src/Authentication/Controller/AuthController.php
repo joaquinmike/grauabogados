@@ -60,10 +60,12 @@ class AuthController extends AbstractActionController
             //authentication success
             $identityRow = $this->identityManager->getAuthService()->getAdapter()->getResultRowObject();
             $this->identityManager->storeIdentity(
-                 array('id'          => $identityRow->id,
-                        'username'   => $dataform['username'],
-                        'ip_address' => $this->getRequest()->getServer('REMOTE_ADDR'),
-                        'user_agent'    => $request->getServer('HTTP_USER_AGENT'))
+                 array(
+                    'us_id'    => $identityRow->us_id,
+                    'us_usuario'    => $identityRow->us_usuario,
+                    'us_email'    => $identityRow->us_email,
+                    'ip_address' => $this->getRequest()->getServer('REMOTE_ADDR'),
+                    'user_agent'    => $request->getServer('HTTP_USER_AGENT'))
             );
 
             return $this->redirect()->toRoute('home');
@@ -79,6 +81,6 @@ class AuthController extends AbstractActionController
     {
         $this->identityManager->logout();
 
-        return $this->redirect()->toRoute('auth');
+        return $this->redirect()->toRoute('home');
     }
 }

@@ -6,6 +6,7 @@ return array(
         'AuthStorage' => 'Authentication\Factory\Storage\AuthStorageFactory',
         'AuthService' => 'Authentication\Factory\Storage\AuthenticationServiceFactory',
         'IdentityManager' => 'Authentication\Factory\Storage\IdentityManagerFactory',
+        'Authentication\Model\Service\AuthenticationService' => 'Authentication\Model\Service\Factory\AuthenticationFactory',
         
         
         'Form\LoginForm' => function($sm){
