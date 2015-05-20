@@ -2,10 +2,9 @@
 //filename : module/Authentication/src/Authentication/Form/LoginForm.php
 namespace Authentication\Form;
 
-use Zend\Form\Form;
-use Zend\InputFilter;
+use Util\Form;
 
-class LoginForm extends Form
+class LoginForm extends Form\BaseForm
 {
     public function __construct()
     {

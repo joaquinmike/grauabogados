@@ -10,16 +10,22 @@
     <!-- END META -->
 
     <!-- BEGIN STYLESHEETS -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
-    <link type="text/css" rel="stylesheet" href="<?php echo $this->server('static')?>assets/css/theme-default/bootstrap.css?1422792965" />
-    <link type="text/css" rel="stylesheet" href="<?php echo $this->server('static')?>assets/css/theme-default/materialadmin.css?1425466319" />
-    <link type="text/css" rel="stylesheet" href="<?php echo $this->server('static')?>assets/css/theme-default/font-awesome.min.css?1422529194" />
-    <link type="text/css" rel="stylesheet" href="<?php echo $this->server('static')?>assets/css/theme-default/material-design-iconic-font.min.css?1421434286" />
+    <?php
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->server('static') . 's/img/favicon.ico'))
+            ->prependStylesheet($this->server('static') . 'assets/css/theme-default/material-design-iconic-font.min.css')
+            ->prependStylesheet($this->server('static') . 'assets/css/theme-default/font-awesome.min.css')
+            ->prependStylesheet($this->server('static') . 'assets/css/theme-default/materialadmin.css')
+            ->prependStylesheet($this->server('static') . 'assets/css/theme-default/bootstrap.css')
+            ->prependStylesheet('http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900')
+    ?>
     <!-- END STYLESHEETS -->
+    
+    <script src="<?php echo $this->server('static')?>assets/js/libs/jquery/jquery-1.11.2.min.js"></script>
+    <script src="<?php echo $this->server('static')?>js/jquery.validate.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script type="text/javascript" src="../../assets/js/libs/utils/html5shiv.js?1403934957"></script>
-    <script type="text/javascript" src="../../assets/js/libs/utils/respond.min.js?1403934956"></script>
+        <script type="text/javascript" src="<?php echo $this->server('static')?>assets/js/libs/utils/html5shiv.js"></script>
+        <script type="text/javascript" src="<?php echo $this->server('static')?>assets/js/libs/utils/respond.min.js"></script>
     <![endif]-->
 </head>

@@ -2,12 +2,19 @@
 <div class="spacer"></div>
 <div class="card contain-sm style-transparent">
     <div class="card-body">
+        <?php if(!empty($this->message)) { ?>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p><?php echo $this->message?><p>
+                </div>
+            </div>
+        <?php } ?>
         <div class="row">
             <div class="col-sm-6">
                 <br/>
                 <span class="text-lg text-bold text-primary">Iniciar Sesión</span>
                 <br/><br/>
-                <form class="form floating-label" action="" accept-charset="utf-8" method="post">
+                <form id="form-login" class="form floating-label" action="" accept-charset="utf-8" method="post">
                     <div class="form-group">
                         <?php echo $this->formRow($this->form->get('username'))?>
                         <label for="username">Usuario</label>
@@ -36,3 +43,17 @@
         </div><!--end .row -->
     </div><!--end .card-body -->
 </div><!--end .card -->
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#form-login').validate({
+            rules: {
+                username: "required",
+                password: "required"
+            },messages: {
+                'username' : 'Escriba su nombre de usuario',
+                'password' : 'Escriba su contraseña.'
+            }
+        });
+    });
+</script>

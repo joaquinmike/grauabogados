@@ -18,21 +18,32 @@ class AuthController extends AbstractActionController
 
     public function indexAction()
     {
+       
         if ($this->identityManager->hasIdentity()) {
             //redirect to success controller...
             return $this->redirect()->toRoute('home');
         }
-
-        $form = $this->getServiceLocator()->get('FormElementManager')
-                                          ->get('Authentication\Form\LoginForm');
+        
+        $form = $this->getServiceLocator()->get('Form\LoginForm');
         $viewModel = new ViewModel();
-
         //initialize error...
         $viewModel->setVariable('error', '');
+        $viewModel->setVariable('message', '');
         //authentication block...
-        $this->authenticate($form, $viewModel);
-
+        if($this->getRequest()->isPost()){
+            $post = $this->params()->fromPost();
+            $form->isValid($this->getRequest());
+            $messagesForm = $form->getMessages();
+            if(empty($messagesForm)){
+                $this->authenticate($form, $viewModel);
+            }
+        }
         $viewModel->setVariable('form', $form);
+        
+        $messages = $this->flashMessenger()->getMessages();
+        if(!empty($messages[0])){
+            $viewModel->setVariable('message', $messages[0]);
+        }
 
         return $viewModel;
     }
@@ -41,28 +52,27 @@ class AuthController extends AbstractActionController
     protected function authenticate($form, $viewModel)
     {
         $request = $this->getRequest();
-        if ($request->isPost()) {
-            $form->setData($request->getPost());
-            if ($form->isValid()) {
-                $dataform = $form->getData();
-                $result = $this->identityManager->login($dataform['username'], $dataform['password']);
+           
+        $dataform = $form->getData();
+        $result = $this->identityManager->login($dataform['username'], $dataform['password']);
 
-                if ($result->isValid()) {
-                    //authentication success
-                    $identityRow = $this->identityManager->getAuthService()->getAdapter()->getResultRowObject();
-                    $this->identityManager->storeIdentity(
-                         array('id'          => $identityRow->id,
-                                'username'   => $dataform['username'],
-                                'ip_address' => $this->getRequest()->getServer('REMOTE_ADDR'),
-                                'user_agent'    => $request->getServer('HTTP_USER_AGENT'))
-                    );
+        if ($result->isValid()) {
+            //authentication success
+            $identityRow = $this->identityManager->getAuthService()->getAdapter()->getResultRowObject();
+            $this->identityManager->storeIdentity(
+                 array('id'          => $identityRow->id,
+                        'username'   => $dataform['username'],
+                        'ip_address' => $this->getRequest()->getServer('REMOTE_ADDR'),
+                        'user_agent'    => $request->getServer('HTTP_USER_AGENT'))
+            );
 
-                    return $this->redirect()->toRoute('home');
-                } else {
-                    $viewModel->setVariable('error', 'Login Error');
-                }
-            }
+            return $this->redirect()->toRoute('home');
+        } else {
+             $this->flashMessenger()->addMessage('El usuario y/o contraseña es incorrecta.');
+             $this->redirect()->toUrl('/');
         }
+           
+        
     }
 
     public function logoutAction()

@@ -6,23 +6,23 @@ namespace Authentication;
 return array(
 
     //controllers services...
-    'controllers' => array(
-        'factories' => array(
-            'Authentication\Controller\Auth' => 'Authentication\Factory\Controller\AuthControllerServiceFactory'
-        ),
-        'invokables' => array(
-            'Authentication\Controller\Success' => 'Authentication\Controller\SuccessController'
-        ),
-    ),
+//    'controllers' => array(
+//        'factories' => array(
+//            'Authentication\Controller\Auth' => 'Authentication\Factory\Controller\AuthControllerServiceFactory'
+//        ),
+//        'invokables' => array(
+//            'Authentication\Controller\Success' => 'Authentication\Controller\SuccessController'
+//        ),
+//    ),
 
     //register auth services...
-    'service_manager' => array(
-        'factories' => array(
-            'AuthStorage' => 'Authentication\Factory\Storage\AuthStorageFactory',
-            'AuthService' => 'Authentication\Factory\Storage\AuthenticationServiceFactory',
-            'IdentityManager' => 'Authentication\Factory\Storage\IdentityManagerFactory',
-        ),
-    ),
+//    'service_manager' => array(
+//        'factories' => array(
+//            'AuthStorage' => 'Authentication\Factory\Storage\AuthStorageFactory',
+//            'AuthService' => 'Authentication\Factory\Storage\AuthenticationServiceFactory',
+//            'IdentityManager' => 'Authentication\Factory\Storage\IdentityManagerFactory',
+//        ),
+//    ),
 
     //routing configuration...
     'router' => array(
