@@ -16,9 +16,9 @@ class Module
 {
     public function onBootstrap(MvcEvent $e)
     {
-        if (PHP_SAPI == "cli") {
-            return;
-        }
+        $view = $e->getViewModel();
+        $home = 'menubar-hoverable header-fixed menubar-pin ';
+        $view->setVariable('body_class', $home);
     }
 
     public function getConfig()

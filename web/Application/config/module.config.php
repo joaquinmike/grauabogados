@@ -92,6 +92,7 @@ return array(
             'layout/header'           => __DIR__ . '/../view/layout/web/header.phtml',
             'layout/footer'           => __DIR__ . '/../view/layout/web/footer.phtml',
             'layout/layout'           => __DIR__ . '/../view/layout/web/layout.phtml',
+            'layout/menu'           => __DIR__ . '/../view/layout/web/menu.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',

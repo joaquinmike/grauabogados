@@ -1,13 +1,16 @@
 <?php echo $this->doctype(); ?>
 
 <html lang="en">
-    <?php echo $this->render('layout/head'); ?>
-    <body class="menubar-hoverable header-fixed ">
-        <?php echo $this->render('layout/header'); ?>
-        <div id="wrapper">
+    <?php echo $this->render('layout/head')?>
+    <body class="<?php echo $this->body_class?>">
+        <?php echo $this->render('layout/header')?>
+        <!-- BEGIN BASE-->
+        <div id="base">
             <?php echo $this->content; ?>
-        </div>
-        <?php echo $this->render('layout/footer'); ?>
-        
+            
+            <?php echo $this->render('layout/menu')?>
+        </div><!--end #base-->
+        <!-- END BASE -->
+        <?php echo $this->render('layout/footer')?>
     </body>
 </html>
