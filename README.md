@@ -1,4 +1,4 @@
 # Grau Abogados
 grau-abogados.pe
-* **Developer** - Joaquin Mike <jmike410@gmail.com>
+* **Developer** - joaquinmike
 * Zend Framework 2
