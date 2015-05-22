@@ -33,7 +33,7 @@ return array(
         'display_exceptions' => true,
         'charset' => 'UTF-8',
         'doctype' => 'HTML5',
-        'title' => 'Checkout',
+        'title' => 'Cit',
         'strategies' => array(
            'ViewJsonStrategy',
         ),
