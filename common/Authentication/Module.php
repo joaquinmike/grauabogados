@@ -92,10 +92,10 @@ class Module {
                && !is_array($user) 
                && empty($user->us_usuario)) {
                 
-                $usuarioModel = $e->getApplication()
-                    ->getServiceManager()->get('Model\Engine4Users');
+                $modelUsuario = $e->getApplication()->getServiceManager()->get('Model\AuthUsuario');
+                $modelMenuUsuario = $e->getApplication()->getServiceManager()->get('Model\AuthUsuarioMenu');
                 
-                $user = $usuarioModel->getUsuarioLoginByUsId($user->us_id);
+                $user = $modelUsuario->getUsuarioLoginByUsId($user->us_id);
                 $viewModel->isAuth = true;
                 
             } else {

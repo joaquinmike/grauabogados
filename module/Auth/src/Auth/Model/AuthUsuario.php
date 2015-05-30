@@ -3,7 +3,7 @@
 /**
  * Currency db table
  *
- * @author http://bongous.com
+ * @author joaquinmike <jmike410@gmail.com>
  */
 
 namespace Auth\Model;
@@ -16,7 +16,7 @@ class AuthUsuario extends AbstractRepository {
     /**
      * @var String Name of db table
      */
-    protected $_table = 'auth_usuario';
+    protected $_table = 'USUARIO';
 
     /**
      * @var Adapter Db
@@ -26,7 +26,7 @@ class AuthUsuario extends AbstractRepository {
     /**
      * @var string or array of fields in table
      */
-    protected $_primary = 'us_id';
+    protected $_primary = 'USUCOD';
     
 
     /**
@@ -35,9 +35,12 @@ class AuthUsuario extends AbstractRepository {
      */
     public function getUsuarioLoginByUsId($usId){
         $select = $this->sql->select()->from(array('t1' => $this->_table))
-                ->columns(array('us_id','us_usuario','us_email','us_estado'))
-            ->where(array('t1.us_id = ?' => $usId));
-        //echo $select->getSqlString();exit;
+                ->columns(array('USUCOD','USUNOM','THEMA'))
+                ->join(array('t2' => 'TIP_USU '), 't1.TIPCOD = t2.TIPCOD', array('TIPCOD','TIPNOM'))
+                ->join(array('t3' => 'TIPOPERSONAL '), 't1.PERCOD = t3.PERCOD', array(''))
+            ->where(array('t1.VIGENTE = ?' => \Auth\Entity\AuthTipoPersonal::ESTADO_ACTIVO))
+            ->where(array('t1.USUCOD = ?' => $usId));
+        echo $select->getSqlString();exit;
         return $this->fetchRow($select);
     }
 

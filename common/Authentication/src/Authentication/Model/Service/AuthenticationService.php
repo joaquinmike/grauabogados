@@ -13,26 +13,26 @@ class AuthenticationService extends AbstractService
      * Credentials' table
      * @var string 
      */
-    protected $_table = 'auth_usuario';    
+    protected $_table = 'USUARIO';    
     
     /**
      * Default identity column
      * @var string 
      */
-    protected $_identityColumn = 'us_usuario';
+    protected $_identityColumn = 'USUCOD';
     
     /**
      * Default credential column
      * @var string
      */
-    protected $_credentialColumn = 'us_password'; 
+    protected $_credentialColumn = 'USUPAS'; 
     
     
     /**
      * Default credential column
      * @var string
      */
-    protected $_statusColumn = 'us_estado'; 
+    //protected $_statusColumn = 'us_estado'; 
     
     /**
      *

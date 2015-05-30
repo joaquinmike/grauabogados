@@ -61,9 +61,10 @@ class AuthController extends AbstractActionController
             $identityRow = $this->identityManager->getAuthService()->getAdapter()->getResultRowObject();
             $this->identityManager->storeIdentity(
                  array(
-                    'us_id'    => $identityRow->us_id,
-                    'us_usuario'    => $identityRow->us_usuario,
-                    'us_email'    => $identityRow->us_email,
+                    'us_id'    => $identityRow->USUCOD,
+                    'us_usuario'    => $identityRow->USUNOM,
+                    'tipo_id'    => $identityRow->TIPCOD,
+                    'tipo_name'    => $identityRow->TIPNOM,
                     'ip_address' => $this->getRequest()->getServer('REMOTE_ADDR'),
                     'user_agent'    => $request->getServer('HTTP_USER_AGENT'))
             );
