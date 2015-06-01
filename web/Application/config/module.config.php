@@ -37,7 +37,7 @@ return array(
             'application' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/index',
+                    'route'    => '/adm',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
                         'controller'    => 'Index',

@@ -12,15 +12,13 @@ namespace Application\Controller;
 use Util\Controller\BaseController;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends BaseController
-{
-    public function indexAction()
-    {
-        $userId = $this->layout()->dataUser['us_id'];
-        $userEmail = $this->layout()->dataUser['us_email'];
+class UsuarioController  extends BaseController {
+    
+    public function listaAction(){
+        
+        
         return new ViewModel(array(
-            'userId' => $userId,
-            'userEmail' => $userEmail,
+
         ));
     }
 }

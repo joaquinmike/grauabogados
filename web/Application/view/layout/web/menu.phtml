@@ -13,47 +13,40 @@
         </div>
     </div>
     <div class="menubar-scroll-panel">
+        
+        <?php if(!empty($this->sysMenu)) { ?>
+            <ul id="main-menu" class="gui-controls">
+                <!-- BEGIN DASHBOARD -->
+                <li>
+                    <a href="/" class="active">
+                        <div class="gui-icon"><i class="md md-home"></i></div>
+                        <span class="title">Home</span>
+                    </a>
+                </li><!--end /menu-li -->
+                <!-- END DASHBOARD -->
+                <?php foreach ($this->sysMenu as $menu) { ?> 
+                     <li class="gui-folder">
+                        <a>
+                            <div class="gui-icon"><i class="md md-email"></i></div>
+                            <span class="title"><?php echo $menu['recurso_desc']?></span>
+                        </a>
+                        <!--start submenu -->
+                        <?php if(!empty($menu['submenu'])) { ?>
+                            <ul>
+                                <?php foreach ($menu['submenu'] as $submenu) { ?> 
+                                    <li><a href="<?php echo $submenu['recurso_uri']?>" ><span class="title">
+                                        <?php echo $submenu['recurso_desc']?>
+                                    </span></a></li>
+                                <?php } ?>
+                            </ul>
+                        <?php } ?>
+                        <!--end /submenu -->
+                    </li>
+                <?php } ?>
+            </ul><!--end .main-menu -->
+            <!-- END MAIN MENU -->
+        <?php } ?>
 
-        <!-- BEGIN MAIN MENU -->
-        <ul id="main-menu" class="gui-controls">
-
-            <!-- BEGIN DASHBOARD -->
-            <li>
-                <a href="/" class="active">
-                    <div class="gui-icon"><i class="md md-home"></i></div>
-                    <span class="title">Home</span>
-                </a>
-            </li><!--end /menu-li -->
-            <!-- END DASHBOARD -->
-
-            <!-- BEGIN EMAIL -->
-            <li class="gui-folder">
-                <a>
-                    <div class="gui-icon"><i class="md md-email"></i></div>
-                    <span class="title">Usuarios</span>
-                </a>
-                <!--start submenu -->
-                <ul>
-                    <li><a href="#" ><span class="title">Lista</span></a></li>
-                    <li><a href="#" ><span class="title">Categorías</span></a></li>
-                </ul><!--end /submenu -->
-            </li><!--end /menu-li -->
-            <!-- END EMAIL -->
-
-            <!-- BEGIN DASHBOARD -->
-            <li>
-                <a href="#" >
-                    <div class="gui-icon"><i class="md md-web"></i></div>
-                    <span class="title">Reportes</span>
-                </a>
-            </li><!--end /menu-li -->
-            <!-- END DASHBOARD -->
-
-          
-         
-
-        </ul><!--end .main-menu -->
-        <!-- END MAIN MENU -->
 
         <div class="menubar-foot-panel">
             <small class="no-linebreak hidden-folded">
