@@ -125,4 +125,7 @@ us_image,us_email,t2.rol_id,t2.rol_desc,
 t3.pers_id,t3.empcod,percod,codigo
 from auth_usuario t1
 inner join auth_rol t2 on t1.rol_id = t2.rol_id
-inner join auth_personal t3 on t1.pers_id = t3.pers_id 
+inner join auth_personal t3 on t1.pers_id = t3.pers_id;
+
+alter table sys_recurso add column recurso_orden INT(11) NULL;
+

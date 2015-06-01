@@ -16,11 +16,6 @@ class IndexController extends BaseController
 {
     public function indexAction()
     {
-        $userId = $this->layout()->dataUser['us_id'];
-        $userEmail = $this->layout()->dataUser['us_email'];
-        return new ViewModel(array(
-            'userId' => $userId,
-            'userEmail' => $userEmail,
-        ));
+        return new ViewModel();
     }
 }

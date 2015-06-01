@@ -35,7 +35,7 @@ class SysRecurso extends AbstractRepository {
             ->where(array('t1.recurso_tipo = ?' => \Sys\Entity\SysRecurso::TIPO_MENU))
             ->where(array('t2.rolrec_permiso = ?' => \Sys\Entity\SysRecurso::ESTADO_PERMISO))
             ->where(array('t2.rol_id = ?' => $rolId))
-            ->order('rec_recurso_id');
+            ->order(array('rec_recurso_id','recurso_orden'));
         //echo $select->getSqlString();exit;
         $data = $this->fetchAll($select);
         $data = \Sys\Entity\SysRecurso::getConvertRecursoToMenu($data);

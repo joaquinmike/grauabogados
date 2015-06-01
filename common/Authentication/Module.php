@@ -93,7 +93,7 @@ class Module {
             $container = new Container('SBIIA');
             $container->user = $user;
             $viewModel->dataUser = $user;
-            $viewModel->actionName = $data['action'];
+            $viewModel->recurso = $data;
             $modelRecurso = $e->getApplication()->getServiceManager()
                     ->get('Model\SysRecurso');
             $dtaMenu = $modelRecurso->getMenuRolByRolId($user['rol_id']);
@@ -124,6 +124,7 @@ class Module {
         $info['module'] = strtolower($controllerArray[0]);
         $info['controller'] = strtolower($controllerArray[2]);
         $info['action'] = strtolower($matches->getParam('action'));
+        $info['recurso'] = $info['module'] . ':' . $info['controller'] . ':' . $info['action'];
 
         return $info;   
     }

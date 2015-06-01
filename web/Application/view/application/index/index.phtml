@@ -4,28 +4,42 @@
     <section>
         <div class="section-header">
             <ol class="breadcrumb">
-                <li><a href="../../html/.html">home</a></li>
-                <li class="active">Blank page</li>
+                <li><a href="/">home</a></li>
+                <li class="active">Dashboard</li>
             </ol>
         </div><!--end .section-header -->
         <div class="section-body">
             <div class="row">
-                <p>
-                    <?php echo 'Usuario : ' . $this->userId?>
-                </p>
-                <p>
-                    <?php echo 'Email   : ' . $this->userEmail?>
-                </p>
-            </div>
-            <div class="row">
-                <?php 
-                    echo '<pre>';
-                    print_r($_SESSION);
-                    echo '</pre>';
-                ?>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body no-padding">
+                            <ul class="list divider-full-bleed">
+                                <li class="tile" style="padding-left: 16px;">
+                                    <div class=" tile-text">
+                                        <?php echo 'Nombre : ' . $this->layout()->dataUser['us_nombre'] . ' ' . $this->layout()->dataUser['us_apellidos'] ?>
+                                    </div>
+                                </li>
+                                <li class="tile" style="padding-left: 16px;">
+                                    <div class="tile-text">
+                                        <?php echo 'Rol : ' . $this->layout()->dataUser['rol_desc'] ?>
+                                    </div>
+                                </li>
+                                <li class="tile" style="padding-left: 16px;">
+                                    <div class="tile-text">
+                                        <?php echo 'Personal Código : ' . $this->layout()->dataUser['pers_code'] ?>
+                                    </div>
+                                </li>
+                                <li class="tile" style="padding-left: 16px;">
+                                    <div class="tile-text">
+                                        <?php echo 'Email   : ' . $this->layout()->dataUser['us_email'] ?>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div><!--end .card-body -->
+                    </div>
+                </div>
             </div>
         </div><!--end .section-body -->
     </section>
-
     <!-- BEGIN BLANK SECTION -->
 </div>

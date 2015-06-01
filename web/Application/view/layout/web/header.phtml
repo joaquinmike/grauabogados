@@ -47,7 +47,8 @@
             <ul class="header-nav header-nav-profile">
                 <li class="dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
-                        <img src="../../assets/img/avatar1.jpg?1403934956" alt="" />
+                        <img src="<?php echo $this->server('static')?>img/usuario/<?php echo $this->layout()->dataUser['us_image']?>" title="<?php echo $this->layout()->dataUser['us_nombre']?>" 
+                            onerror="this.src='<?php echo $this->server('static')?>img/default_user.png'"/>
                         <span class="profile-info">
                             <?php echo $this->layout()->dataUser['us_nombre']?>
                             <small><?php echo $this->layout()->dataUser['rol_desc']?></small>
