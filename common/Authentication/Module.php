@@ -94,6 +94,7 @@ class Module {
             $container->user = $user;
             $viewModel->dataUser = $user;
             $viewModel->recurso = $data;
+            
             $modelRecurso = $e->getApplication()->getServiceManager()
                     ->get('Model\SysRecurso');
             $dtaMenu = $modelRecurso->getMenuRolByRolId($user['rol_id']);

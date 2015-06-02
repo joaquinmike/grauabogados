@@ -128,6 +128,22 @@ return array(
             'es' => array('code' => 'es', 'name' => 'Espa&ntilde;a / Espa&ntilde;ol', 'index' => 4),
         )
     ),
+    'caches' => array(
+        'cache' => array(
+            'adapter' => array(
+                'name' => 'filesystem',
+                'options' => array(
+                    'dirLevel' => 2,
+                    'cacheDir' => 'data/cache',
+                    'dirPermission' => 0755,
+                    'filePermission' => 0666,
+                    'namespaceSeparator' => '-db-'
+                ),
+            ),
+            'plugins' => array('serializer')
+        ),
+        'mencached' => array()
+    )
    
   
 );
