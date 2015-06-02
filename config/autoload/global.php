@@ -143,7 +143,17 @@ return array(
             'plugins' => array('serializer')
         ),
         'mencached' => array()
-    )
-   
+    ),
+    // Config
+    'authentication' => array(        
+        'acl' => array(
+            'resources' => array(            
+                'public' => array(
+                    'authentication:auth:index',
+                    'adm:test:index',
+                ),
+            ),
+        ),
+    ),
   
 );
