@@ -15,10 +15,17 @@ use Zend\View\Model\ViewModel;
 class UsuarioController  extends BaseController {
     
     public function listaAction(){
-        
-        
+        $page = $this->params()->fromQuery('page', 1); 
+        $item = 1;
+        if($page > 1){
+            $item = (($page - 1) * \Application\Entity\Functions::LIMIT_DEFAULT) + 1;
+        }
+        $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
+        $paginator = $modelPersonal->getPersonalAllByOrder($page);
+       
         return new ViewModel(array(
-
+            'item' => $item,
+            'paginator' => $paginator
         ));
     }
 }

@@ -11,6 +11,10 @@ return array(
             $adapter = $sm->get('Zend\Db\Adapter\Adapter');
             return new \Auth\Model\AuthRol($adapter, $sm);
         },
+        'Model\AuthPersonal' => function($sm){
+            $adapter = $sm->get('Zend\Db\Adapter\Adapter');
+            return new \Auth\Model\AuthPersonal($adapter, $sm);
+        },
      ),
                 
     'invokables' => array(

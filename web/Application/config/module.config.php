@@ -39,10 +39,11 @@ return array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route'    => '/[:controller[/:action]][/:id/:value]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'         => 'value',
                             ),
                             'defaults' => array(
                             ),
@@ -50,6 +51,22 @@ return array(
                     ),
                 ),
             ),
+            'paginator' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/adm/usuario/lista?[page=:page]',
+                    'constraints' => array(
+                        'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Applicaction\Controller',
+                        'controller'    => 'Usuario',
+                        'action'        => 'lista',
+                        'page' => 1,
+                    ),
+                ),
+            ),    
         ),
     ),
     'service_manager' => array(

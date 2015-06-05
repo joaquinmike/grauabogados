@@ -31,10 +31,23 @@
                         <!-- BEGIN SEARCH NAV -->
                         <div class="col-sm-4 col-md-3 col-lg-2">
                             <ul class="nav nav-pills nav-stacked">
-                                <li><small>CATEGORIES</small></li>
-                                <li class="active"><a href="../../../html/pages/contacts/search.html">All contacts <small class="pull-right text-bold opacity-75">153</small></a></li>
-                                <li><a href="../../../html/pages/contacts/search.html">Family <small class="pull-right text-bold opacity-75">16</small></a></li>
-                                <li><a href="../../../html/pages/contacts/search.html">Friends <small class="pull-right text-bold opacity-75">76</small></a></li>
+                                <li><small>Categorías</small></li>
+                                <li class="active">
+                                    <a href="">
+                                        General <small class="pull-right text-bold opacity-75">153</small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        Categoría1 <small class="pull-right text-bold opacity-75">16</small>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        Categoría2 <small class="pull-right text-bold opacity-75">76
+                                        </small>
+                                    </a>
+                                </li>
                             </ul>
                         </div><!--end .col -->
                         <!-- END SEARCH NAV -->
@@ -43,234 +56,56 @@
 
                             <!-- BEGIN SEARCH RESULTS LIST -->
                             <div class="margin-bottom-xxl">
-                                <span class="text-light text-lg">Filtered results <strong>34</strong></span>
+                                <span class="text-light text-lg">Página <strong><?php echo $this->paginator->getCurrentPageNumber()?></strong> de <strong><?php echo $this->paginator->count()?></strong></span>
                                 <div class="btn-group btn-group-sm pull-right">
                                     <button data-toggle="dropdown" class="btn btn-default-light dropdown-toggle" type="button">
-                                        <span class="glyphicon glyphicon-arrow-down"></span> Sort
+                                        <span class="glyphicon glyphicon-arrow-down"></span> Ordenar
                                     </button>
                                     <ul role="menu" class="dropdown-menu dropdown-menu-right animation-dock">
-                                        <li><a href="#">First name</a></li>
-                                        <li><a href="#">Last name</a></li>
-                                        <li><a href="#">Email address</a></li>
+                                        <li><a href="#">Nombre</a></li>
+                                        <li><a href="#">Apellido</a></li>
+                                        <li><a href="#">Correo</a></li>
                                     </ul>
                                 </div>
                             </div><!--end .margin-bottom-xxl -->
                             <div class="list-results">
-                                <div class="col-xs-12 col-lg-6 hbox-xs">
-                                    <div class="hbox-column width-2">
-                                        <img alt="" src="../../../assets/img/avatar9.jpg?1404026744" class="img-circle img-responsive pull-left">
-                                    </div><!--end .hbox-column -->
-                                    <div class="hbox-column v-top">
-                                        <div class="clearfix">
-                                            <div class="col-lg-12 margin-bottom-lg">
-                                                <a href="../../../html/pages/contacts/details.html" class="text-lg text-medium">Ann Laurens</a>
+                                <?php foreach ($this->paginator as $value) { ?>
+                                    <div class="col-xs-12 col-lg-6 hbox-xs">
+                                        <div class="hbox-column width-2">
+                                            <img alt="" src="../../../assets/img/avatar9.jpg?1404026744" class="img-circle img-responsive pull-left">
+                                        </div><!--end .hbox-column -->
+                                        <div class="hbox-column v-top">
+                                            <div class="clearfix">
+                                                <div class="col-lg-12 margin-bottom-lg">
+                                                    <a href="" class="text-lg text-medium">
+                                                        <?php echo $value['apepatper'] . ' ' . $value['apematper'] . ', ' . $value['nombreper']?>
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="clearfix opacity-75">
-                                            <div class="col-md-5">
-                                                <span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;567-890-1234
+                                            <div class="clearfix opacity-75">
+                                                <div class="col-md-12">
+                                                    <span class="glyphicon glyphicon-phone text-sm"></span> 
+                                                    &nbsp;<?php echo $value['telefono']?>
+                                                </div>
                                             </div>
-                                            <div class="col-md-7">
-                                                <span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;ann@laurens.com
+                                            <div class="clearfix">
+                                                <div class="col-md-12">
+                                                    <span class="opacity-75">
+                                                        <span class="glyphicon glyphicon-envelope text-sm"></span> 
+                                                        &nbsp;<?php echo $value['email']?>
+                                                    </span>
+                                                    
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="clearfix">
-                                            <div class="col-lg-12">
-                                                <span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;795 Folsom Ave, San Francisco, CA 94107</span>
-                                            </div>
-                                        </div>
-                                        <div class="stick-top-right small-padding">
-                                            <i data-original-title="User online" data-placement="left" data-toggle="tooltip" class="fa fa-dot-circle-o fa-fw text-success"></i>
-                                        </div>
-                                    </div><!--end .hbox-column -->
-                                </div><!--end .hbox-xs -->
-                                <div class="col-xs-12 col-lg-6 hbox-xs">
-                                    <div class="hbox-column width-2">
-                                        <img alt="" src="../../../assets/img/avatar3.jpg?1404026799" class="img-circle img-responsive pull-left">
-                                    </div><!--end .hbox-column -->
-                                    <div class="hbox-column v-top">
-                                        <div class="clearfix">
-                                            <div class="col-lg-12 margin-bottom-lg">
-                                                <a href="../../../html/pages/contacts/details.html" class="text-lg text-medium">Mike Alba</a>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix opacity-75">
-                                            <div class="col-md-5">
-                                                <span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;098-765-4321
-                                            </div>
-                                            <div class="col-md-7">
-                                                <span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;norman@erik.com
-                                            </div>
-                                        </div>
-                                        <div class="clearfix">
-                                            <div class="col-lg-12">
-                                                <span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;795 Folsom Ave, San Francisco, CA 94107</span>
-                                            </div>
-                                        </div>
-                                    </div><!--end .hbox-column -->
-                                </div><!--end .hbox-xs -->
-                                <div id="test" class="col-xs-12 col-lg-6 hbox-xs">
-                                    <div class="hbox-column width-2">
-                                        <img alt="" src="../../../assets/img/avatar2.jpg?1404026449" class="img-circle img-responsive pull-left">
-                                    </div><!--end .hbox-column -->
-                                    <div class="hbox-column v-top">
-                                        <div class="clearfix">
-                                            <div class="col-lg-12 margin-bottom-lg">
-                                                <a href="../../../html/pages/contacts/details.html" class="text-lg text-medium">Jessica Cruise</a>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix opacity-75">
-                                            <div class="col-md-5">
-                                                <span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;123-456-7890
-                                            </div>
-                                            <div class="col-md-7">
-                                                <span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;norman@erik.com
-                                            </div>
-                                        </div>
-                                        <div class="clearfix">
-                                            <div class="col-lg-12">
-                                                <span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;795 Folsom Ave, San Francisco, CA 94107</span>
-                                            </div>
-                                        </div>
-                                    </div><!--end .hbox-column -->
-                                </div><!--end .hbox-xs -->
-                                <div class="col-xs-12 col-lg-6 hbox-xs">
-                                    <div class="hbox-column width-2">
-                                        <img alt="" src="../../../assets/img/avatar5.jpg?1404026513" class="img-circle img-responsive pull-left">
-                                    </div><!--end .hbox-column -->
-                                    <div class="hbox-column v-top">
-                                        <div class="clearfix">
-                                            <div class="col-lg-12 margin-bottom-lg">
-                                                <a href="../../../html/pages/contacts/details.html" class="text-lg text-medium">Mabel Logan</a>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix opacity-75">
-                                            <div class="col-md-5">
-                                                <span class="glyphicon glyphicon-phone-alt text-sm"></span> &nbsp;999-878-5323
-                                            </div>
-                                            <div class="col-md-7">
-                                                <span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;mabel@logan-intern.com
-                                            </div>
-                                        </div>
-                                        <div class="clearfix">
-                                            <div class="col-lg-12">
-                                                <span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;795 Folsom Ave, San Francisco, CA 94107</span>
-                                            </div>
-                                        </div>
-                                    </div><!--end .hbox-column -->
-                                </div><!--end .hbox-xs -->
-                                <div class="col-xs-12 col-lg-6 hbox-xs">
-                                    <div class="hbox-column width-2">
-                                        <img alt="" src="../../../assets/img/avatar6.jpg?1404026572" class="img-circle img-responsive pull-left">
-                                    </div><!--end .hbox-column -->
-                                    <div class="hbox-column v-top">
-                                        <div class="clearfix">
-                                            <div class="col-lg-12 margin-bottom-lg">
-                                                <a href="../../../html/pages/contacts/details.html" class="text-lg text-medium">Nathan Peterson</a>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix opacity-75">
-                                            <div class="col-md-5">
-                                                <span class="glyphicon glyphicon-phone-alt text-sm"></span> &nbsp;765-341-1231
-                                            </div>
-                                            <div class="col-md-7">
-                                                <span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;nathan@peterson.com
-                                            </div>
-                                        </div>
-                                        <div class="clearfix">
-                                            <div class="col-lg-12">
-                                                <span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;795 Folsom Ave, San Francisco, CA 94107</span>
-                                            </div>
-                                        </div>
-                                        <div class="stick-top-right small-padding">
-                                            <i data-original-title="User online" data-placement="left" data-toggle="tooltip" class="fa fa-dot-circle-o fa-fw text-success"></i>
-                                        </div>
-                                    </div><!--end .hbox-column -->
-                                </div><!--end .hbox-xs -->
-                                <div class="col-xs-12 col-lg-6 hbox-xs">
-                                    <div class="hbox-column width-2">
-                                        <img alt="" src="../../../assets/img/avatar11.jpg?1404026774" class="img-circle img-responsive pull-left">
-                                    </div><!--end .hbox-column -->
-                                    <div class="hbox-column v-top">
-                                        <div class="clearfix">
-                                            <div class="col-lg-12 margin-bottom-lg">
-                                                <a href="../../../html/pages/contacts/details.html" class="text-lg text-medium">Beverly Pierce</a>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix opacity-75">
-                                            <div class="col-md-5">
-                                                <span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;234-567-8901
-                                            </div>
-                                            <div class="col-md-7">
-                                                <span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;beverly@intern-pierce-inc.com
-                                            </div>
-                                        </div>
-                                        <div class="clearfix">
-                                            <div class="col-lg-12">
-                                                <span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;795 Folsom Ave, San Francisco, CA 94107</span>
-                                            </div>
-                                        </div>
-                                    </div><!--end .hbox-column -->
-                                </div><!--end .hbox-xs -->
-                                <div class="col-xs-12 col-lg-6 hbox-xs">
-                                    <div class="hbox-column width-2">
-                                        <img alt="" src="../../../assets/img/avatar10.jpg?1404026762" class="img-circle img-responsive pull-left">
-                                    </div><!--end .hbox-column -->
-                                    <div class="hbox-column v-top">
-                                        <div class="clearfix">
-                                            <div class="col-lg-12 margin-bottom-lg">
-                                                <a href="../../../html/pages/contacts/details.html" class="text-lg text-medium">Samuel Parsons</a>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix opacity-75">
-                                            <div class="col-md-5">
-                                                <span class="glyphicon glyphicon-phone text-sm"></span> &nbsp;876-543-2109
-                                            </div>
-                                            <div class="col-md-7">
-                                                <span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;Samuel@parsons-company.com
-                                            </div>
-                                        </div>
-                                        <div class="clearfix">
-                                            <div class="col-lg-12">
-                                                <span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;795 Folsom Ave, San Francisco, CA 94107</span>
-                                            </div>
-                                        </div>
-                                    </div><!--end .hbox-column -->
-                                </div><!--end .hbox-xs -->
-                                <div class="col-xs-12 col-lg-6 hbox-xs">
-                                    <div class="hbox-column width-2">
-                                        <img alt="" src="../../../assets/img/avatar8.jpg?1404026729" class="img-circle img-responsive pull-left">
-                                    </div><!--end .hbox-column -->
-                                    <div class="hbox-column v-top">
-                                        <div class="clearfix">
-                                            <div class="col-lg-12 margin-bottom-lg">
-                                                <a href="../../../html/pages/contacts/details.html" class="text-lg text-medium">Jim Peters</a>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix opacity-75">
-                                            <div class="col-md-5">
-                                                <span class="glyphicon glyphicon-phone-alt text-sm"></span> &nbsp;345-345-3454
-                                            </div>
-                                            <div class="col-md-7">
-                                                <span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;jim@peters.com
-                                            </div>
-                                        </div>
-                                        <div class="clearfix">
-                                            <div class="col-lg-12">
-                                                <span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;795 Folsom Ave, San Francisco, CA 94107</span>
-                                            </div>
-                                        </div>
-                                        <div class="stick-top-right small-padding">
-                                            <i data-original-title="User online" data-placement="left" data-toggle="tooltip" class="fa fa-dot-circle-o fa-fw text-success"></i>
-                                        </div>
-                                    </div><!--end .hbox-column -->
-                                </div><!--end .hbox-xs -->
+                                        </div><!--end .hbox-column -->
+                                    </div><!--end .hbox-xs -->
+                                <?php } ?>
                             </div><!--end .list-results -->
 
-                            <!-- BEGIN SEARCH RESULTS LIST -->
+                            <?php echo $this->paginationControl($this->paginator, 'sliding', 'application/paginador/sliding.phtml'); ?>
 
                             <!-- BEGIN SEARCH RESULTS PAGING -->
-                            <div class="text-center">
+<!--                            <div class="text-center">
                                 <ul class="pagination">
                                     <li class="disabled"><a href="#">«</a></li>
                                     <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
@@ -280,7 +115,7 @@
                                     <li><a href="#">5</a></li>
                                     <li><a href="#">»</a></li>
                                 </ul>
-                            </div><!--end .text-center -->
+                            </div>end .text-center -->
 
                             <!-- BEGIN SEARCH RESULTS PAGING -->
                         </div><!--end .col -->
