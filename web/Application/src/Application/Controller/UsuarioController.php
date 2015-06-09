@@ -16,15 +16,26 @@ class UsuarioController  extends BaseController {
     
     public function listaAction(){
         $page = $this->params()->fromQuery('page', 1); 
+        $post = array();
+        $formFilter = $this->getServiceLocator()->get('Form\FormUsuarioFiltro');
+        
+        if($this->getRequest()->isPost()){
+            $post = $this->params()->fromPost();
+            $formFilter->setData($post);
+        }
+        
         $item = 1;
         if($page > 1){
             $item = (($page - 1) * \Application\Entity\Functions::LIMIT_DEFAULT) + 1;
         }
         $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
-        $paginator = $modelPersonal->getPersonalAllByOrder($page);
-       
+        $paginator = $modelPersonal->getPersonalAllByOrder($page,$post);
+        
+        
+        
         return new ViewModel(array(
             'item' => $item,
+            'formFilter' => $formFilter,
             'paginator' => $paginator
         ));
     }

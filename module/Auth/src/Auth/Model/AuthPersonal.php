@@ -28,7 +28,7 @@ class AuthPersonal extends AbstractRepository {
      */
     protected $_primary = 'pers_id';
     
-    public function getPersonalAllByOrder($page, $order = NULL, $limit = \Application\Entity\Functions::LIMIT_DEFAULT){
+    public function getPersonalAllByOrder($page, $filter = NULL, $limit = \Application\Entity\Functions::LIMIT_DEFAULT){
         $select = $this->sql->select()->from(array('t1' => $this->_table))
             ->columns(array('pers_id', 'nombreper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(nombreper,1)),SUBSTR(lower(nombreper),2))'),
                  'apepatper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apepatper,1)),SUBSTR(lower(apepatper),2))'),
@@ -37,6 +37,11 @@ class AuthPersonal extends AbstractRepository {
             ->join(array('t2' => 'auth_usuario'), 't1.pers_id = t2.pers_id', array('us_id'),'left');
         if(!empty($order)){
             $select->order($order);
+        }
+        if(!empty($filter)){
+            if(!empty($filter['pers_civil'])){
+                $select->where(array('estcivil = ?' => $filter['pers_civil']));
+            }
         }
         //echo $select->getSqlString();exit;
         $data = $this->getPaginatorForSelect($select, $page, $limit);

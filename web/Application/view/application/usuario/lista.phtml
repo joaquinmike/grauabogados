@@ -11,50 +11,48 @@
         <div class="section-body">
             <div class="card">
 
-                <!-- BEGIN SEARCH HEADER -->
                 <div class="card-head style-primary">
-                    <div class="tools pull-left">
-                        <form role="search" class="navbar-search">
+                    
+                    
+                    <div class="col-lg-8">
+                        <form id="form-filter" action="" method="post">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                     <div class="form-group">
+                                        <label for="tipopers" class="control-label">Tipo Personal</label>
+                                        <?php echo $this->formRow($this->formFilter->get('pers_civil'))?>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="Lastname5" class="control-label">Área</label>
+                                        <?php echo $this->formRow($this->formFilter->get('pers_area'))?>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                            
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="tools pull-right">
+                            <form id="form-search" role="search" class="navbar-search" method="post">
                             <div class="form-group">
-                                <input type="text" placeholder="Enter your keyword" name="contactSearch" class="form-control">
+                                <input type="text" placeholder="Búsqueda" name="search-text" class="form-control">
                             </div>
                             <button class="btn btn-icon-toggle ink-reaction" type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
+                    </div>        
+                   
                 </div><!--end .card-head -->
-                <!-- END SEARCH HEADER -->
 
-                <!-- BEGIN SEARCH RESULTS -->
                 <div class="card-body">
+                    
                     <div class="row">
 
-                        <!-- BEGIN SEARCH NAV -->
-                        <div class="col-sm-4 col-md-3 col-lg-2">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><small>Categorías</small></li>
-                                <li class="active">
-                                    <a href="">
-                                        General <small class="pull-right text-bold opacity-75">153</small>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        Categoría1 <small class="pull-right text-bold opacity-75">16</small>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        Categoría2 <small class="pull-right text-bold opacity-75">76
-                                        </small>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div><!--end .col -->
-                        <!-- END SEARCH NAV -->
+                        <div class="col-sm-8 col-md-9 col-lg-12">
+                            
 
-                        <div class="col-sm-8 col-md-9 col-lg-10">
-
-                            <!-- BEGIN SEARCH RESULTS LIST -->
                             <div class="margin-bottom-xxl">
                                 <span class="text-light text-lg">Página <strong><?php echo $this->paginator->getCurrentPageNumber()?></strong> de <strong><?php echo $this->paginator->count()?></strong></span>
                                 <div class="btn-group btn-group-sm pull-right">
@@ -104,28 +102,18 @@
 
                             <?php echo $this->paginationControl($this->paginator, 'sliding', 'application/paginador/sliding.phtml'); ?>
 
-                            <!-- BEGIN SEARCH RESULTS PAGING -->
-<!--                            <div class="text-center">
-                                <ul class="pagination">
-                                    <li class="disabled"><a href="#">«</a></li>
-                                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">»</a></li>
-                                </ul>
-                            </div>end .text-center -->
-
-                            <!-- BEGIN SEARCH RESULTS PAGING -->
                         </div><!--end .col -->
                     </div><!--end .row -->
                 </div><!--end .card-body -->
-                <!-- END SEARCH RESULTS -->
 
             </div>
         </div><!--end .section-body -->
     </section>
-
     <!-- BEGIN BLANK SECTION -->
 </div>
+
+<script type="text/javascript">
+    function getFilterPersonal(){
+        $('#form-filter').submit();
+    }
+</script>

@@ -15,6 +15,14 @@ return array(
             $adapter = $sm->get('Zend\Db\Adapter\Adapter');
             return new \Auth\Model\AuthPersonal($adapter, $sm);
         },
+        'Model\AuthPrincipalPr' => function($sm){
+            $adapter = $sm->get('Zend\Db\Adapter\Adapter');
+            return new \Auth\Model\AuthPrincipalPr($adapter, $sm);
+        },
+        'Entity\AuthPrincipalPr' => function($sm){
+            $adapter = $sm->get('Zend\Db\Adapter\Adapter');
+            return new \Auth\Entity\AuthPrincipalPr($adapter, $sm);
+        },
      ),
                 
     'invokables' => array(
