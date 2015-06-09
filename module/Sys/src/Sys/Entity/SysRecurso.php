@@ -15,6 +15,9 @@ class SysRecurso {
     
     const ESTADO_PERMISO = 'allow';
     
+    const ROL_ADMIN = 1;
+    const ROL_INVITADO = 2;
+    
     /**
      * 
      * @param type $data

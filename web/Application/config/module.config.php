@@ -27,7 +27,7 @@ return array(
             'application' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    'route'    => '/adm',
+                    'route'    => '/application',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
                         'controller'    => 'Index',
@@ -54,7 +54,7 @@ return array(
             'paginator' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/adm/usuario/lista?[page=:page]',
+                    'route' => '/application/usuario/lista?[page=:page]',
                     'constraints' => array(
                         'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',

@@ -84,13 +84,12 @@ class Module {
         $viewModel->isAuth = $authService->hasIdentity();   
         if (!$authService->hasIdentity() 
             && empty($_SESSION['cit_session']['storage'])) {  
-            $rol = 'invitado';
+            $rol = \Sys\Entity\SysRecurso::ROL_INVITADO;
 //            if (!$this->initAcl($e, $rol)) {
 //                return $this->redirect($e);
 //            }
         } elseif ($authService->hasIdentity() 
                 || !empty($_SESSION['cit_session']['storage'])) {
-            
             $user = $authService->getIdentity(); 
             
             $container = new Container('SBIIA');
@@ -103,9 +102,9 @@ class Module {
             $dtaMenu = $modelRecurso->getMenuRolByRolId($user['rol_id']);
             $viewModel->sysMenu = $dtaMenu;
             //$this->checkUserEmail($e, $user);   
-//            if (!$this->initAcl($e, $user['rol_id'])) {
-//                return $this->redirect($e);
-//            }
+            if (!$this->initAcl($e, $user['rol_id'])) {
+                return $this->redirect($e);
+            }
         }
     }
     
@@ -116,7 +115,8 @@ class Module {
                 ->get('Authentication\Model\Service\AclService');
         $aclService->setResource($info['recurso']);
         $aclService->setRol($rol);
-       
+        //$data = $aclService->getRolService();
+        //var_dump($data);exit;
         return $aclService->validate();
     }
     

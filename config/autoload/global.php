@@ -76,9 +76,9 @@ return array(
                 
     //Emails
     'emails' => array(
-        'admin' => 'ing.angeljara@gmail.com', // email del administrador
-        'developers' => 'ing.angeljara@gmail.com', // emails de los dev
-        'from' => 'contacto@techstarter.pe',
+        'admin' => 'jmike410@gmail.com', // email del administrador
+        'developers' => 'jmike410@gmail.com', // emails de los dev
+        'from' => '',
     ), 
     
     //Servers
@@ -150,7 +150,7 @@ return array(
             'resources' => array(            
                 'public' => array(
                     'authentication:auth:index',
-                    'adm:test:index',
+                    'application:test:index',
                 ),
             ),
         ),

@@ -69,13 +69,11 @@ class AclService
         if (!$this->_acl->hasResource($cleanResource)) {            
             return true;
         }
-
         try {
             $allow = $this->_acl->isAllowed($this->_rol, $cleanResource);
-        } catch (InvalidArgumentException $e) {            
+        } catch (InvalidArgumentException $e) {
             $allow = false;
         }
-        
         return $allow;
     }
 
@@ -106,7 +104,7 @@ class AclService
     {
         $this->_rol = $rol;
     }
-
+    
     /**
      * Limpia el recurso para la comparar en el ACL
      * 
@@ -130,7 +128,6 @@ class AclService
     private function _loadRoles()
     {
         $roles = $this->getRoles();
-        
         foreach ($roles as $rol) {
             $this->_acl->addRole(new GenericRole($rol[self::FIELD_ROL_ID]));
         }        
@@ -156,14 +153,13 @@ class AclService
         $recusosIgnorados = $this->_getRecursosIgnorados();        
 
         $resources = $this->_getResources();
-        
         $ignorado = false;
         foreach ($resources as $resource) {
             if (empty($resource[self::FIELD_RESOURCE_URI])) {
                 continue;
             }
             
-            foreach ($recusosIgnorados as $ri) {                
+            foreach ($recusosIgnorados as $ri) {  
                 if (strpos($resource[self::FIELD_RESOURCE_URI], $ri) !== FALSE) {
                     $ignorado = true;
                 }
@@ -200,10 +196,12 @@ class AclService
      */
     private function _loadPermissions()
     {       
-        $rolPermissions = $this->getPermissionsService()->getPermissions();        
-        foreach ($rolPermissions as $rol => $permission) {
-            $this->_acl->allow($rol, $permission);
-        }      
+        $rolPermissions = $this->getPermissionsService()->getPermissions();     
+        foreach ($rolPermissions as $rol => $roles) {
+            foreach ($roles as $permiso){
+                $this->_acl->$permiso['rol_permiso']($rol, $permiso['recurso_uri']);
+            }
+        }
     }
     
     public function getPermissionsService()

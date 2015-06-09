@@ -34,13 +34,17 @@ class SysRolRecurso extends AbstractRepository {
     public function getAllRolPermissions() 
     {
        $select = $this->sql->select()->from(array('t1' => $this->_table))
-            ->columns(array('*'))
-            ->join(array('t2' => 'sys_recurso'), 't1.recurso_id = t2.recurso_id',array('recurso_uri'));
+            ->columns(array('rolrec_permiso','rol_id'))
+            ->join(array('t2' => 'sys_recurso'), 't1.recurso_id = t2.recurso_id',array('recurso_id','recurso_uri'));
         $recursos =  $this->fetchAll($select);
         $response = array();
         if (!empty($recursos)) {
             foreach ($recursos as $value) {
-                $response[$value['rol_id']][$value['recurso_id']] = $value['recurso_uri'];
+                $response[$value['rol_id']][$value['recurso_id']] = array(
+                    'recurso_id' => $value['recurso_id'],
+                    'recurso_uri' => $value['recurso_uri'],
+                    'rol_permiso' => $value['rolrec_permiso']
+                );
             }
         }
         return $response;
