@@ -103,7 +103,9 @@
                                 <?php foreach ($this->paginator as $value) { ?>
                                     <div class="col-xs-12 col-lg-6 hbox-xs">
                                         <div class="hbox-column width-2">
-                                            <img alt="" src="../../../assets/img/avatar9.jpg?1404026744" class="img-circle img-responsive pull-left">
+                                            <img alt="" src="<?php echo $this->server('imagen') . $value['codigo']?>.png" 
+                                                 class="img-circle img-responsive pull-left" width="100" height="100"
+                                                onerror="this.src='<?php echo $this->server('static','assets/img/avatar9.jpg',true)?>'">
                                         </div><!--end .hbox-column -->
                                         <div class="hbox-column v-top">
                                             <div class="clearfix">

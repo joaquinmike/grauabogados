@@ -85,14 +85,17 @@ return array(
     'servers' => array(
         'static' => array(
             'host' => 'http://dev.grau-abogados.pe/',
-            'version' => '?v1.1'
+            'version' => '?v1.0.0.1'
         ),
         'element' => array(
-            'host' => 'http://dev.grau-abogados.pe/',                
+            'host' => 'http://dev.grau-abogados.pe/',
         ),
         'content' => array(
             'host' => 'http://dev.grau-abogados.pe/',                
-        ),            
+        ),
+        'imagen' => array(
+            'host' => 'http://www.estudiograu.com/fotos/'
+        ),
     ), 
     'service_manager' => array(
         'factories' => array(

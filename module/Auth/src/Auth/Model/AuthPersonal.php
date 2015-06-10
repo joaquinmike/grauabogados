@@ -31,9 +31,9 @@ class AuthPersonal extends AbstractRepository {
     public function getPersonalAllByOrder($page, $filter = NULL, $limit = \Application\Entity\Functions::LIMIT_DEFAULT){
         $select = $this->sql->select()->from(array('t1' => $this->_table))
             ->columns(array('pers_id', 'nombreper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(nombreper,1)),SUBSTR(lower(nombreper),2))'),
-                 'apepatper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apepatper,1)),SUBSTR(lower(apepatper),2))'),
+                'apepatper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apepatper,1)),SUBSTR(lower(apepatper),2))'),
                 'apematper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apematper,1)),SUBSTR(lower(apematper),2))'),
-                'direccion','telefono','email'))
+                'codigo','direccion','telefono','email'))
             ->join(array('t2' => 'auth_usuario'), 't1.pers_id = t2.pers_id', array('us_id'),'left');
         if(!empty($order)){
             $select->order($order);
