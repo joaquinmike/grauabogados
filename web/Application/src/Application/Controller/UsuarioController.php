@@ -18,10 +18,10 @@ class UsuarioController  extends BaseController {
         $page = $this->params()->fromQuery('page', 1); 
         $post = array();
         $formFilter = $this->getServiceLocator()->get('Form\FormUsuarioFiltro');
-        if($this->getRequest()->isPost()){
-            $post = $this->params()->fromPost();
+        //if($this->getRequest()->isPost()){
+            $post = $this->params()->fromQuery();
             $formFilter->setData($post);
-        }
+        //}
         
         $item = 1;
         if($page > 1){

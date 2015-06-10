@@ -37,7 +37,7 @@
                                 <?php foreach ($menu['submenu'] as $submenu) { ?> 
                                     <?php $cssSubmenu = ($this->recurso['recurso'] == $submenu['recurso_uri']) ? 'active' : ''?>
                                     <li class="<?php echo $cssSubmenu?>">
-                                        <a href="<?php echo $submenu['recurso_link']?>" >
+                                        <a href="<?php echo $this->server('content') . $submenu['recurso_link']?>" >
                                             <span class="title">
                                                 <?php echo $submenu['recurso_desc']?>
                                             </span>

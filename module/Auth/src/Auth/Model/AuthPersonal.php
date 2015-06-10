@@ -54,6 +54,9 @@ class AuthPersonal extends AbstractRepository {
             if(!empty($filter['pers_sexo'])){
                 $select->where(array('sexo = ?' => $filter['pers_sexo']));
             }
+            if(!empty($filter['pers_estado'])){
+                $select->where(array('estado = ?' => $filter['pers_estado']));
+            }
         }
         //echo $select->getSqlString();exit;
         $data = $this->getPaginatorForSelect($select, $page, $limit);

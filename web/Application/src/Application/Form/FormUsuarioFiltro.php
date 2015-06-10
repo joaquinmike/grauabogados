@@ -90,5 +90,22 @@ class FormUsuarioFiltro extends BaseForm {
                 ),
             )
         ));
+        
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'pers_estado',
+            'attributes' => array(
+                'id' => 'pers_estado',
+                'class' => 'form-control',
+                'onchange' => 'getFilterPersonal()',
+            ),
+            'options' => array(
+                'value_options' => array(
+                    '' => ' - ',
+                    \Auth\Entity\AuthPersonal::ESTADO_ACTIVO => 'Activo',
+                    \Auth\Entity\AuthPersonal::ESTADO_INACTIVO => 'Inactivo'
+                ),
+            )
+        ));
     }
 }
