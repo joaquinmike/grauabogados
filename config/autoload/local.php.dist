@@ -33,7 +33,7 @@ return array(
             'element' => 'http://dev.grau-abogados.org/',
         ),
         'email_development' => array(
-            'likerow@gmail.com',
+            'jmike410@gmail.com',
         ), 
         'pusher' => array
         (
