@@ -18,7 +18,6 @@ class UsuarioController  extends BaseController {
         $page = $this->params()->fromQuery('page', 1); 
         $post = array();
         $formFilter = $this->getServiceLocator()->get('Form\FormUsuarioFiltro');
-        
         if($this->getRequest()->isPost()){
             $post = $this->params()->fromPost();
             $formFilter->setData($post);
@@ -30,8 +29,6 @@ class UsuarioController  extends BaseController {
         }
         $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
         $paginator = $modelPersonal->getPersonalAllByOrder($page,$post);
-        
-        
         
         return new ViewModel(array(
             'item' => $item,

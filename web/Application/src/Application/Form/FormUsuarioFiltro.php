@@ -14,9 +14,23 @@ class FormUsuarioFiltro extends BaseForm {
          parent::__construct();
         //Estado Civil
         $modelPrincipal = $service->get('Model\AuthPrincipalPr');
+        $dtaTipo = $modelPrincipal->getDataFiltroByCode(\Auth\Entity\AuthPrincipalPr::COD_TIPO_PERSONAL);
+        $dtaTipo = \Application\Entity\Functions::getFormatSelectArray($dtaTipo, array('id' => 'secucod','value' => 'secudes'));
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'pers_tipo',
+            'attributes' => array(
+                'id' => 'pers_tipo',
+                'class' => 'form-control',
+                'onchange' => 'getFilterPersonal()',
+            ),
+            'options' => array(
+                'value_options' => $dtaTipo,
+            )
+        ));
+        
         $dtaEstadoCivil = $modelPrincipal->getDataFiltroByCode(\Auth\Entity\AuthPrincipalPr::COD_CIVIL);
-        $dtaEstadoCivil = \Application\Entity\Functions::getFormatSelectArray(
-                $dtaEstadoCivil, array('id' => 'secucod','value' => 'secudes'),true);
+        $dtaEstadoCivil = \Application\Entity\Functions::getFormatSelectArray($dtaEstadoCivil, array('id' => 'secucod','value' => 'secudes'));
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'pers_civil',
@@ -42,6 +56,38 @@ class FormUsuarioFiltro extends BaseForm {
             ),
             'options' => array(
                 'value_options' => $dtaArea,
+            )
+        ));
+        
+        $dtaCargo = $modelPrincipal->getDataFiltroByCode(\Auth\Entity\AuthPrincipalPr::COD_CARGO);
+        $dtaCargo = \Application\Entity\Functions::getFormatSelectArray($dtaCargo, array('id' => 'secucod','value' => 'secudes'));
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'pers_cargo',
+            'attributes' => array(
+                'id' => 'pers_cargo',
+                'class' => 'form-control',
+                'onchange' => 'getFilterPersonal()',
+            ),
+            'options' => array(
+                'value_options' => $dtaCargo,
+            )
+        ));
+        
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'pers_sexo',
+            'attributes' => array(
+                'id' => 'pers_sexo',
+                'class' => 'form-control',
+                'onchange' => 'getFilterPersonal()',
+            ),
+            'options' => array(
+                'value_options' => array(
+                    '' => ' - ',
+                    \Application\Entity\Functions::SEXO_MASCULINO => 'Masculino',
+                    \Application\Entity\Functions::SEXO_FEMENINO => 'Femenino'
+                ),
             )
         ));
     }

@@ -15,8 +15,11 @@ class Functions {
     
     const RECURSO_DEFAULT = 'application:index:index';
     
-    const LIMIT_DEFAULT = 10; //limite de registros en un paginado
+    const LIMIT_DEFAULT = 16; //limite de registros en un paginado
     const PAGE_RANGE_DEFAULT = 5; //limite de las páginas mostradas en un paginador
+    
+    const SEXO_MASCULINO = 'M';
+    const SEXO_FEMENINO = 'F';
     
     /**
      * 
@@ -28,7 +31,7 @@ class Functions {
     static function getFormatSelectArray($data,$item,$default = true){
         $result = array();
         if($default){
-            $result[NULL] = '-Seleccionar-';
+            $result[NULL] = ' - ';
         }
         foreach ($data as $value){
             $result[$value[$item['id']]] = $value[$item['value']];

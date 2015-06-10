@@ -39,8 +39,20 @@ class AuthPersonal extends AbstractRepository {
             $select->order($order);
         }
         if(!empty($filter)){
+            if(!empty($filter['pers_tipo'])){
+                $select->where(array('tipoper = ?' => $filter['pers_tipo']));
+            }
+            if(!empty($filter['pers_area'])){
+                $select->where(array('area = ?' => $filter['pers_area']));
+            }
+            if(!empty($filter['pers_cargo'])){
+                $select->where(array('cargo = ?' => $filter['pers_cargo']));
+            }
             if(!empty($filter['pers_civil'])){
                 $select->where(array('estcivil = ?' => $filter['pers_civil']));
+            }
+            if(!empty($filter['pers_sexo'])){
+                $select->where(array('sexo = ?' => $filter['pers_sexo']));
             }
         }
         //echo $select->getSqlString();exit;
