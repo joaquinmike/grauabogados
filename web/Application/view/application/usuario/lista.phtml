@@ -10,77 +10,80 @@
         </div><!--end .section-header -->
         <div class="section-body">
             <div class="card">
-                <div class="card-body">
-                    <div class="col-lg-8">
-                        <form id="form-filter" action="" method="get">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                     <div class="form-group">
-                                        <label for="tipopers" class="control-label">Tipo Personal</label>
-                                        <?php echo $this->formRow($this->formFilter->get('pers_tipo'))?>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="Lastname5" class="control-label">Área laboral</label>
-                                        <?php echo $this->formRow($this->formFilter->get('pers_area'))?>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="Lastname5" class="control-label">Género</label>
-                                        <?php echo $this->formRow($this->formFilter->get('pers_sexo'))?>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="Lastname5" class="control-label">Cargo</label>
-                                        <?php echo $this->formRow($this->formFilter->get('pers_cargo'))?>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="Lastname5" class="control-label">Estado Civil</label>
-                                        <?php echo $this->formRow($this->formFilter->get('pers_civil'))?>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label for="Lastname5" class="control-label">Estado</label>
-                                        <?php echo $this->formRow($this->formFilter->get('pers_estado'))?>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2" style="margin-top: 20px;">
-                                    <div class="form-group">
-                                        <button type="button" class="btn ink-reaction btn-flat btn-primary" onclick="getRestoreFilter('/application/usuario/lista')">
-                                            Limpiar
-                                        </button>
-                                    </div>
-                                </div>
+                
+                 <!-- BEGIN SEARCH HEADER -->
+                <div class="card-head style-primary">
+                    <div class="tools pull-right">
+                        <form role="search" class="navbar-search">
+                            <div class="form-group">
+                                <input type="text" placeholder="Enter your keyword" name="contactSearch" class="form-control">
                             </div>
+                            <button class="btn btn-icon-toggle ink-reaction" type="submit"><i class="fa fa-search"></i></button>
                         </form>
-                            
                     </div>
-                    <div class="col-lg-4">
-                        <div class="tools pull-right">
-                            <form id="form-search" role="search" class="navbar-search" method="post">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Búsqueda" name="search-text" class="form-control">
-                                </div>
-                                <button class="btn btn-icon-toggle ink-reaction" type="submit"><i class="fa fa-search"></i></button>
-                            </form>
-                        </div>
-                    </div>        
-
-                </div>
-            </div>
-            <div class="card">
+                </div><!--end .card-head -->
+                <!-- END SEARCH HEADER -->
+                
                 <div class="card-body">
                     
                     <div class="row">
 
-                        <div class="col-sm-8 col-md-9 col-lg-12">
+                        <!-- BEGIN SEARCH NAV -->
+                        <div class="col-sm-4 col-md-3 col-lg-3">
+                            <form id="form-filter" action="" method="get">
+                                
+                                <ul class="nav nav-pills nav-stacked">
+                                    <li><small>Filtro</small></li>
+                                    <li class="active">
+                                        <div class="form-group">
+                                            <label for="tipopers" class="control-label">Tipo Personal</label>
+                                            <?php echo $this->formRow($this->formFilter->get('pers_tipo'))?>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            <label for="Lastname5" class="control-label">Área laboral</label>
+                                            <?php echo $this->formRow($this->formFilter->get('pers_area'))?>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            <label for="Lastname5" class="control-label">Cargo</label>
+                                            <?php echo $this->formRow($this->formFilter->get('pers_cargo'))?>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            <label for="Lastname5" class="control-label">Género</label>
+                                            <?php echo $this->formRow($this->formFilter->get('pers_sexo'))?>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            <label for="Lastname5" class="control-label">Estado Civil</label>
+                                            <?php echo $this->formRow($this->formFilter->get('pers_civil'))?>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            <label for="Lastname5" class="control-label">Estado</label>
+                                            <?php echo $this->formRow($this->formFilter->get('pers_estado'))?>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            <button type="button" class="btn ink-reaction btn-flat btn-primary" onclick="getRestoreFilter('/application/usuario/lista')">
+                                                Limpiar
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div><!--end .col -->
+                        <!-- END SEARCH NAV -->
+                        
+                        
+                        <div class="col-sm-8 col-md-9 col-lg-9">
                             
 
                             <div class="margin-bottom-xxl">
@@ -103,9 +106,15 @@
                                 <?php foreach ($this->paginator as $value) { ?>
                                     <div class="col-xs-12 col-lg-6 hbox-xs">
                                         <div class="hbox-column width-2">
-                                            <img alt="" src="<?php echo $this->server('imagen') . $value['codigo']?>.png" style="max-width: 72% !important"
-                                                 class="img-circle img-responsive pull-left" 
-                                                onerror="this.src='<?php echo $this->server('static','assets/img/avatar9.jpg',true)?>'" />
+                                            <?php if(!empty($value['codigo'])) { ?>
+                                                <img alt="" src="<?php echo $this->server('imagen') . $value['codigo']?>.png" style="max-width: 72% !important"
+                                                     class="img-circle img-responsive pull-left" 
+                                                    onerror="this.src='<?php echo $this->server('static','assets/img/avatar9.jpg',true)?>'" />
+                                            <?php }else { ?>
+                                                 <img alt="" src="<?php echo $this->server('static','assets/img/avatar9.jpg',true)?>" 
+                                                     class="img-circle img-responsive pull-left" />
+                                            <?php } ?>
+                                                
                                         </div><!--end .hbox-column -->
                                         <div class="hbox-column v-top">
                                             <div class="clearfix">
