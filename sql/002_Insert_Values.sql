@@ -9,7 +9,7 @@ insert into sys_recurso (recurso_desc,recurso_uri,recurso_estado,recurso_tipo,re
 ('Usuario','usuario',1,1,NULL);
 
 insert into sys_recurso (recurso_desc,recurso_uri,recurso_estado,recurso_tipo,rec_recurso_id)  
-select 'Lista','adm:usuario:lista',1,1,(select recurso_id from sys_recurso where recurso_desc = 'Usuario' and rec_recurso_id is null);
+select 'Lista','application:usuario:lista',1,1,(select recurso_id from sys_recurso where recurso_desc = 'Usuario' and rec_recurso_id is null);
 
 insert into sys_recurso (recurso_desc,recurso_uri,recurso_estado,recurso_tipo,rec_recurso_id) values 
 ('Reportes','reporte',1,1,NULL);
@@ -21,4 +21,4 @@ insert into sys_rol_recurso (recurso_id,rol_id,rolrec_permiso)
 select (select recurso_id from sys_recurso where recurso_desc = 'Reportes' and recurso_tipo = 1),1,'allow';
 
 insert into sys_rol_recurso (recurso_id,rol_id,rolrec_permiso)
-select (select recurso_id from sys_recurso where recurso_uri = 'adm:usuario:lista' and recurso_tipo = 1),1,'allow';
+select (select recurso_id from sys_recurso where recurso_uri = 'application:usuario:lista' and recurso_tipo = 1),1,'allow';

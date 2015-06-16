@@ -1,0 +1,60 @@
+<script src="<?php echo $this->server('static', 'assets/js/libs/raphael/raphael-min.js', true)?>"></script>
+<script src="<?php echo $this->server('static', 'assets/js/libs/morris.js/morris.min.js', true)?>"></script>
+<!-- BEGIN CONTENT-->
+<div id="content">
+    <section>
+        <div class="section-header">
+            <ol class="breadcrumb">
+                <li><a href="/">home</a></li>
+                <li class="active">Diagrama N1</li>
+            </ol>
+        </div><!--end .section-header -->
+        <div class="section-body contain-lg">
+
+            <!-- BEGIN MORRIS - STACKED BAR CHART -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="text-primary">Diagrama charts</h2>
+                </div>
+                <div class="col-lg-12">
+                    <h4>Examples</h4>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <article class="margin-bottom-xxl">
+                        <p>
+                            Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. 
+                            Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, 
+                            legimus senserit definiebas an eos.
+                        </p>
+                    </article>
+                </div><!--end .col -->
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="morris-donut-graph" class="height-6" data-colors="#9C27B0,#2196F3,#0aa89e,#FF9800"></div>
+                        </div><!--end .card-body -->
+                    </div><!--end .card -->
+                    <em class="text-caption">Diagram chart</em>
+                </div><!--end .col -->
+            </div><!--end .row -->
+            <!-- END MORRIS - STACKED BAR CHART -->
+
+        </div><!--end .section-body -->
+    </section>
+</div><!--end #content-->
+<!-- END CONTENT -->
+<script type="text/javascript">
+    Morris.Donut({
+        element: 'morris-donut-graph',
+        data: [
+            {value: 70, label: 'foo', formatted: 'at least 70%'},
+            {value: 15, label: 'bar', formatted: 'approx. 15%'},
+            {value: 10, label: 'baz', formatted: 'approx. 10%'},
+            {value: 5, label: 'A really really long label', formatted: 'at most 5%'}
+        ],
+        colors: $('#morris-donut-graph').data('colors').split(','),
+        formatter: function (x, data) {
+            return data.formatted;
+        }
+    });
+</script>
