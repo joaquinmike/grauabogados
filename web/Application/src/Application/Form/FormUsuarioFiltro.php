@@ -99,9 +99,9 @@ class FormUsuarioFiltro extends BaseForm {
                 'class' => 'form-control',
                 'onchange' => 'getFilterPersonal()',
             ),
+            'value' => \Auth\Entity\AuthPersonal::ESTADO_ACTIVO,
             'options' => array(
                 'value_options' => array(
-                    '' => ' - ',
                     \Auth\Entity\AuthPersonal::ESTADO_ACTIVO => 'Activo',
                     \Auth\Entity\AuthPersonal::ESTADO_INACTIVO => 'Inactivo'
                 ),

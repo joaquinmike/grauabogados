@@ -34,7 +34,7 @@ class AuthPrincipalPr extends AbstractRepository {
             ->join(array('t2' => 'auth_tabla_se'), 't1.princod = t2.princod', 
                 array('secucod','secudes' => new \Zend\Db\Sql\Expression("concat(SUBSTRING(secudes,1,27),if(CHAR_LENGTH(secudes) > 26,'...',''))")))
             ->where(array('t1.princod = ?' => $code))
-            ->order(array('secudes'));
+            ->order(array('secucod'));
         return $this->fetchAll($select);
     }
 }
