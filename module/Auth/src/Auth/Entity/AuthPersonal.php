@@ -1,14 +1,24 @@
 <?php
+
+namespace Auth\Entity;
+
 /**
  * Description of AuthPrincipalPe
  *
  * @author joaquin
  */
-namespace Auth\Entity;
+
+use Zend\Session\Container;
 
 class AuthPersonal {
     //put your code here
     const ESTADO_ACTIVO = 'A';
     const ESTADO_INACTIVO = 'I';
+    
+    static function removeFilterPersonal(){
+        $sesPersonal = new Container('personal');    
+        $sesPersonal->filter = array();
+        $sesPersonal->search = NULL;
+    }
     
 }

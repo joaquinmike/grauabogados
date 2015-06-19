@@ -18,10 +18,11 @@ class UsuarioController  extends BaseController {
     
     public function listaAction(){
         $page = $this->params()->fromQuery('page', 1); 
-        $filtro = $this->params()->fromQuery('filtro', NULL); 
+        $filtro = $this->params()->fromQuery('filtro', NULL);
+        $buscador = $this->params()->fromQuery('perssearch', NULL);
         $post = array();
         $formFilter = $this->getServiceLocator()->get('Form\FormUsuarioFiltro');
-        $sesPersonal = new Container('personal');    
+        $sesPersonal = new Container('personal');
         if($this->getRequest()->isPost()){
             $post = $this->params()->fromPost();
             $sesPersonal->filter =  $post;
@@ -31,23 +32,31 @@ class UsuarioController  extends BaseController {
         }else{
             $formFilter->setData($sesPersonal->filter);
         }
+        
+        if(empty($sesPersonal->search)){
+            $sesPersonal->search = NULL;
+        }
+        if(!is_null($buscador)){
+             $sesPersonal->search = $buscador;
+        }
+        
         $item = 1;
         if($page > 1){
             $item = (($page - 1) * \Application\Entity\Functions::LIMIT_DEFAULT) + 1;
         }
         $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
-        $paginator = $modelPersonal->getPersonalAllByOrder($page,$sesPersonal->filter);
+        $paginator = $modelPersonal->getPersonalAllByOrder($page,$sesPersonal->filter,$sesPersonal->search);
         
         return new ViewModel(array(
             'item' => $item,
             'formFilter' => $formFilter,
-            'paginator' => $paginator
+            'paginator' => $paginator,
+            'buscador' => $sesPersonal->search
         ));
     }
     
     public function listaLimpiarAction(){
-        $sesPersonal = new Container('personal');    
-        $sesPersonal->filter = array();
+        \Auth\Entity\AuthPersonal::removeFilterPersonal();
         $json = new JsonModel( array('success' => 1) );
         return $json;
         
