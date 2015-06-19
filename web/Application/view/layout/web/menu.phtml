@@ -20,7 +20,7 @@
                 <li>
                     <a href="/" class="<?php echo ($this->recurso['recurso'] == \Application\Entity\Functions::RECURSO_DEFAULT) ? 'active' : ''?>">
                         <div class="gui-icon"><i class="md md-home"></i></div>
-                        <span class="title">Home</span>
+                        <span class="title">Inicio</span>
                     </a>
                 </li><!--end /menu-li -->
                 <!-- END DASHBOARD -->
@@ -28,7 +28,7 @@
                     <?php $css = ($this->recurso['controller'] == $menu['recurso_uri']) ? 'active expanded' : ''?>
                     <li class="gui-folder <?php echo $css?>">
                         <a>
-                            <div class="gui-icon"><i class="md md-email"></i></div>
+                            <div class="gui-icon"><i class="md <?php echo $menu['recurso_css']?>"></i></div>
                             <span class="title"><?php echo $menu['recurso_desc']?></span>
                         </a>
                         <!--start submenu -->
