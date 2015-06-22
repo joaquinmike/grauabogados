@@ -36,10 +36,8 @@ class AuthPersonal extends AbstractRepository {
                 'codigo','direccion','telefono','email'))
             ->join(array('t2' => 'auth_usuario'), 't1.pers_id = t2.pers_id', array('us_id'),'left')
             ->join(array('t3' => 'auth_tabla_se'), new \Zend\Db\Sql\Expression("t3.princod = '002' and t3.secucod = t1.tipoper"), 
-                array('pert_id' => 'secucod','pert_nombre' => 'secudes'));
-        if(!empty($order)){
-            $select->order($order);
-        }
+                array('pert_id' => 'secucod','pert_nombre' => 'secudes'))
+            ->order(array('apepatper','apematper','nombreper'));
         if(!empty($filter['pers_estado'])){
             $select->where(array('estado = ?' => $filter['pers_estado']));
         }else{
