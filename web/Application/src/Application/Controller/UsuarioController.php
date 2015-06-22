@@ -46,11 +46,12 @@ class UsuarioController  extends BaseController {
         }
         $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
         $paginator = $modelPersonal->getPersonalAllByOrder($page,$sesPersonal->filter,$sesPersonal->search);
-        
+        $data = \Auth\Entity\AuthPersonal::formatGrupoPersonalByPaginator($paginator);
         return new ViewModel(array(
             'item' => $item,
             'formFilter' => $formFilter,
             'paginator' => $paginator,
+            'data' => $data,
             'buscador' => $sesPersonal->search
         ));
     }

@@ -102,48 +102,53 @@
                                     </ul>
                                 </div>-->
                             </div><!--end .margin-bottom-xxl -->
-                            <div class="list-results">
-                                <?php foreach ($this->paginator as $value) { ?>
-                                    <div class="col-xs-12 col-lg-6 hbox-xs">
-                                        <div class="hbox-column width-2">
-                                            <?php if(!empty($value['codigo'])) { ?>
-                                                <img alt="" src="<?php echo $this->server('imagen') . $value['codigo']?>.png" style="max-width: 72% !important"
-                                                     class="img-circle img-responsive pull-left" 
-                                                    onerror="this.src='<?php echo $this->server('static','assets/img/avatar9.jpg',true)?>'" />
-                                            <?php }else { ?>
-                                                 <img alt="" src="<?php echo $this->server('static','assets/img/avatar9.jpg',true)?>" 
-                                                     class="img-circle img-responsive pull-left" />
-                                            <?php } ?>
-                                                
-                                        </div><!--end .hbox-column -->
-                                        <div class="hbox-column v-top">
-                                            <div class="clearfix">
-                                                <div class="col-lg-12 margin-bottom-lg">
-                                                    <a href="" class="text-lg text-medium">
-                                                        <?php echo $value['apepatper'] . ' ' . $value['apematper'] . ', ' . $value['nombreper']?>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix opacity-75">
-                                                <div class="col-md-12">
-                                                    <span class="glyphicon glyphicon-phone text-sm"></span> 
-                                                    &nbsp;<?php echo $value['telefono']?>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix">
-                                                <div class="col-md-12">
-                                                    <span class="opacity-75">
-                                                        <span class="glyphicon glyphicon-envelope text-sm"></span> 
-                                                        &nbsp;<?php echo $value['email']?>
-                                                    </span>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div><!--end .hbox-column -->
-                                    </div><!--end .hbox-xs -->
-                                <?php } ?>
-                            </div><!--end .list-results -->
+                            <?php foreach ($this->data as $categoria) { ?>
+                                <div class="col-lg-12">
+                                    <h2 class="text-primary"><?php echo $categoria['cat']['pert_nombre']?></h2>
+                                </div>
+                                <div class="list-results">
+                                    <?php foreach ($categoria['data'] as $value) { ?>
+                                        <div class="col-xs-12 col-lg-6 hbox-xs">
+                                            <div class="hbox-column width-2">
+                                                <?php if(!empty($value['codigo'])) { ?>
+                                                    <img alt="" src="<?php echo $this->server('imagen') . $value['codigo']?>.png" style="max-width: 72% !important"
+                                                         class="img-circle img-responsive pull-left" 
+                                                        onerror="this.src='<?php echo $this->server('static','assets/img/avatar9.jpg',true)?>'" />
+                                                <?php }else { ?>
+                                                     <img alt="" src="<?php echo $this->server('static','assets/img/avatar9.jpg',true)?>" 
+                                                         class="img-circle img-responsive pull-left" />
+                                                <?php } ?>
 
+                                            </div><!--end .hbox-column -->
+                                            <div class="hbox-column v-top">
+                                                <div class="clearfix">
+                                                    <div class="col-lg-12 margin-bottom-lg">
+                                                        <a href="" class="text-lg text-medium">
+                                                            <?php echo $value['apepatper'] . ' ' . $value['apematper'] . ', ' . $value['nombreper']?>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix opacity-75">
+                                                    <div class="col-md-12">
+                                                        <span class="glyphicon glyphicon-phone text-sm"></span> 
+                                                        &nbsp;<?php echo $value['telefono']?>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix">
+                                                    <div class="col-md-12">
+                                                        <span class="opacity-75">
+                                                            <span class="glyphicon glyphicon-envelope text-sm"></span> 
+                                                            &nbsp;<?php echo $value['email']?>
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </div><!--end .hbox-column -->
+                                        </div><!--end .hbox-xs -->
+                                    <?php } ?>
+                                </div><!--end .list-results -->
+                            <?php } ?>
+                           
                             <?php echo $this->paginationControl($this->paginator, 'sliding', 'application/paginador/sliding.phtml'); ?>
 
                         </div><!--end .col -->
