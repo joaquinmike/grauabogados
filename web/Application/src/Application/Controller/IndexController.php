@@ -16,7 +16,7 @@ class IndexController extends BaseController
 {
     public function indexAction()
     {
-        
+        //Dashboard Principal
         return new ViewModel();
     }
 }
