@@ -21,6 +21,8 @@ class Functions {
     const SEXO_MASCULINO = 'M';
     const SEXO_FEMENINO = 'F';
     
+    
+    const SITE_PERSONAL = 'personal';
     /**
      * 
      * @param type $data
@@ -39,4 +41,13 @@ class Functions {
         return $result;
     }
     
+    
+    static function getBreadCrumb($site,$actual){
+        $url = '<li><a href="/">Inicio</a></li>';
+        if($site == self::SITE_PERSONAL){
+             $url .= '<li><a href="/application/usuario/lista">Personal</a></li>';
+        }
+        $url .= '<li class="active">' . $actual . '</li>';
+        return $url;
+    }
 }
