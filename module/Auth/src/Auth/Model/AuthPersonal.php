@@ -73,7 +73,7 @@ class AuthPersonal extends AbstractRepository {
     
     public function getGraficoPersonalByCliente($perCod, $fechaIni,$fechaFin){
         $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_cliente'))
-            ->columns(array('cliente','tiempo' => 'sum(tiemponum)'))
+            ->columns(array('cliente','tiempo' => new \Zend\Db\Sql\Expression('sum(tiemponum)')))
             ->where(array('percod = ?' => $perCod))
             ->where(array('anomes BETWEEN ? and ?' => array($fechaIni,$fechaFin)))
             ->group(array('cliente'));
@@ -83,7 +83,7 @@ class AuthPersonal extends AbstractRepository {
     
      public function getGraficoPersonalByCategoria($areaCode, $fechaIni, $fechaFin){
         $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_cliente'))
-           ->columns(array('cliente','tiempo' => 'sum(tiemponum)'))
+           ->columns(array('cliente','tiempo' => new \Zend\Db\Sql\Expression('sum(tiemponum)')))
            ->where(array('areacod  = ?' => $areaCode))
            ->where(array('anomes BETWEEN ? and ?' => array($fechaIni,$fechaFin)))
            ->group(array('cliente'))
