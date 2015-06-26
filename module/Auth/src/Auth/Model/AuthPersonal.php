@@ -31,9 +31,9 @@ class AuthPersonal extends AbstractRepository {
     public function getPersonalAllByOrder($page, $filter = NULL, $search = NULL, $limit = \Application\Entity\Functions::LIMIT_DEFAULT){
         $select = $this->sql->select()->from(array('t1' => $this->_table))
             ->columns(array('percod', 
-                'nombreper' =>  new \Zend\Db\Sql\Expression("(case when len(rtrim(nombreper)) > 0 then UPPER(substring(nombreper,1,1)) + LOWER(SUBSTRING(nombreper,2,len(nombreper)-1)) else '.' end)"),
-                'apepatper' =>  new \Zend\Db\Sql\Expression("(case when len(rtrim(apepatper)) > 0 then UPPER(substring(apepatper,1,1)) + LOWER(SUBSTRING(apepatper,2,len(apepatper)-1)) else '.' end)"),
-                'apematper' =>  new \Zend\Db\Sql\Expression("(case when len(rtrim(apematper)) > 0 then UPPER(substring(apematper,1,1)) + LOWER(SUBSTRING(apematper,2,len(apematper)-1)) else '.' end)"),
+                'nombreper' =>  new \Zend\Db\Sql\Expression("dbo.WordCap(nombreper)"),
+                'apepatper' =>  new \Zend\Db\Sql\Expression("dbo.WordCap(apepatper)"),
+                'apematper' =>  new \Zend\Db\Sql\Expression("dbo.WordCap(apematper)"),
                 'codigo','direccion','telefono','email'))
             ->join(array('t2' => 'auth_usuario'), 't1.percod = t2.percod', array('us_id'),'left')
             ->join(array('t3' => 'tabla_se'), new \Zend\Db\Sql\Expression("t3.princod = '002' and t3.secucod = t1.tipoper"), 
