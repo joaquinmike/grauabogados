@@ -71,4 +71,21 @@ class AuthPersonal extends AbstractRepository {
         return $data;
     }
     
+    public function getGraficoPersonalByCliente($perCod){
+        $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_cliente'),
+               array('cliente','tiempo' => 'sum(tiemponum) '))
+           ->where(array('percod => ?' => $perCod))
+           ->group(array('cliente'));
+         return $this->fetchAll($select);
+    }
+    
+     public function getGraficoPersonalByCategoria($areaCode){
+        $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_cliente'),
+               array('cliente','tiempo' => 'sum(tiemponum) '))
+           ->where(array('areacod  => ?' => $areaCode))
+           ->group(array('cliente'))
+            ->order('cliente');
+         return $this->fetchAll($select);
+    }
+    
 }

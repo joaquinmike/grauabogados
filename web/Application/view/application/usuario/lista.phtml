@@ -4,8 +4,7 @@
     <section>
         <div class="section-header">
             <ol class="breadcrumb">
-                <li><a href="/">Home</a></li>
-                <li class="active">Lista de Usuarios</li>
+               <?php echo \Application\Entity\Functions::getBreadCrumb($this->site, 'Lista de Usuarios')?>
             </ol>
         </div><!--end .section-header -->
         <div class="section-body">
@@ -104,7 +103,11 @@
                             </div><!--end .margin-bottom-xxl -->
                             <?php foreach ($this->data as $categoria) { ?>
                                 <div class="col-lg-12">
-                                    <h2 class="text-primary"><?php echo $categoria['cat']['pert_nombre']?></h2>
+                                    <h2 class="text-primary">
+                                        <a href="/application/reporte/diagrama?<?php echo \Auth\Entity\AuthPersonal::getUrlReportePersonal($categoria['cat']['pert_id'],'C')?>&site=<?php echo \Application\Entity\Functions::SITE_PERSONAL?>">
+                                            <?php echo $categoria['cat']['pert_nombre']?>
+                                        </a>
+                                    </h2>
                                 </div>
                                 <div class="list-results">
                                     <?php foreach ($categoria['data'] as $value) { ?>
@@ -123,7 +126,7 @@
                                             <div class="hbox-column v-top">
                                                 <div class="clearfix">
                                                     <div class="col-lg-12 margin-bottom-lg">
-                                                        <a href="" class="text-lg text-medium">
+                                                        <a href="/application/reporte/diagrama?<?php echo \Auth\Entity\AuthPersonal::getUrlReportePersonal($value['percod'])?>&site=<?php echo \Application\Entity\Functions::SITE_PERSONAL?>" class="text-lg text-medium">
                                                             <?php echo $value['apepatper'] . ' ' . $value['apematper'] . ', ' . $value['nombreper']?>
                                                         </a>
                                                     </div>
