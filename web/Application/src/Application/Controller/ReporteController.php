@@ -14,16 +14,13 @@ use Zend\View\Model\ViewModel;
 
 class ReporteController  extends BaseController {
     
-    public function personalAction(){
-        
-    }
-    
     public function diagramaAction(){
         $tipo = $this->params()->fromQuery('tipo', NULL); 
         $persCode = $this->params()->fromQuery('codigo', NULL); 
         $site = $this->params()->fromQuery('site', NULL); 
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
         return new ViewModel(array(
+            'tipo' => $tipo,
             'site' => $site,
         ));
     }
