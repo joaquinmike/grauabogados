@@ -75,8 +75,9 @@ class AuthPersonal extends AbstractRepository {
         $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_cliente'),
                array('cliente','tiempo' => 'sum(tiemponum)'))
            ->where(array('percod = ?' => $perCod))
-            ->where(array('anomes BETWEEN ? and ?  => ?' => array($fechaIni,$fechaFin)))
+            ->where(array('anomes BETWEEN ? and ?' => array($fechaIni,$fechaFin)))
            ->group(array('cliente'));
+        //echo $select->getSqlString();exit;
          return $this->fetchAll($select);
     }
     
@@ -84,9 +85,10 @@ class AuthPersonal extends AbstractRepository {
         $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_cliente'),
                array('cliente','tiempo' => 'sum(tiemponum) '))
            ->where(array('areacod  => ?' => $areaCode))
-           ->where(array('anomes BETWEEN ? and ?  => ?' => array($fechaIni,$fechaFin)))
+           ->where(array('anomes BETWEEN ? and ?' => array($fechaIni,$fechaFin)))
            ->group(array('cliente'))
             ->order('cliente');
+        //echo $select->getSqlString();exit;
          return $this->fetchAll($select);
     }
     
