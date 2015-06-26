@@ -16,7 +16,7 @@ class AuthPersonal extends AbstractRepository {
     /**
      * @var String Name of db table
      */
-    protected $_table = 'auth_personal';
+    protected $_table = 'personal';
 
     /**
      * @var Adapter Db
@@ -26,18 +26,20 @@ class AuthPersonal extends AbstractRepository {
     /**
      * @var string or array of fields in table
      */
-    protected $_primary = 'pers_id';
+    protected $_primary = 'percod';
     
     public function getPersonalAllByOrder($page, $filter = NULL, $search = NULL, $limit = \Application\Entity\Functions::LIMIT_DEFAULT){
         $select = $this->sql->select()->from(array('t1' => $this->_table))
-            ->columns(array('pers_id', 'nombreper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(nombreper,1)),SUBSTR(lower(nombreper),2))'),
-                'apepatper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apepatper,1)),SUBSTR(lower(apepatper),2))'),
-                'apematper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apematper,1)),SUBSTR(lower(apematper),2))'),
-                'codigo','direccion','telefono','email','percod'))
-            ->join(array('t2' => 'auth_usuario'), 't1.pers_id = t2.pers_id', array('us_id'),'left')
-            ->join(array('t3' => 'auth_tabla_se'), new \Zend\Db\Sql\Expression("t3.princod = '002' and t3.secucod = t1.tipoper"), 
+            ->columns(array('percod', 
+                'nombreper' =>  new \Zend\Db\Sql\Expression("(case when len(rtrim(nombreper)) > 0 then UPPER(substring(nombreper,1,1)) + LOWER(SUBSTRING(nombreper,2,len(nombreper)-1)) else '.' end)"),
+                'apepatper' =>  new \Zend\Db\Sql\Expression("(case when len(rtrim(apepatper)) > 0 then UPPER(substring(apepatper,1,1)) + LOWER(SUBSTRING(apepatper,2,len(apepatper)-1)) else '.' end)"),
+                'apematper' =>  new \Zend\Db\Sql\Expression("(case when len(rtrim(apematper)) > 0 then UPPER(substring(apematper,1,1)) + LOWER(SUBSTRING(apematper,2,len(apematper)-1)) else '.' end)"),
+                'codigo','direccion','telefono','email'))
+            ->join(array('t2' => 'auth_usuario'), 't1.percod = t2.percod', array('us_id'),'left')
+            ->join(array('t3' => 'tabla_se'), new \Zend\Db\Sql\Expression("t3.princod = '002' and t3.secucod = t1.tipoper"), 
                 array('pert_id' => 'secucod','pert_nombre' => 'secudes'))
-            ->order(array('apepatper','apematper','nombreper'));
+            ->where(array('tipoper not in (?,?,?)' => array('008','009','012')))
+            ->order(array('tipoper','apepatper','apematper','nombreper'));
         if(!empty($filter['pers_estado'])){
             $select->where(array('estado = ?' => $filter['pers_estado']));
         }else{
@@ -67,6 +69,23 @@ class AuthPersonal extends AbstractRepository {
         //echo $select->getSqlString();exit;
         $data = $this->getPaginatorForSelect($select, $page, $limit);
         return $data;
+    }
+    
+    public function getGraficoPersonalByCliente($perCod){
+        $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_cliente'),
+               array('cliente','tiempo' => 'sum(tiemponum) '))
+           ->where(array('percod => ?' => $perCod))
+           ->group(array('cliente'));
+         return $this->fetchAll($select);
+    }
+    
+     public function getGraficoPersonalByCategoria($areaCode){
+        $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_cliente'),
+               array('cliente','tiempo' => 'sum(tiemponum) '))
+           ->where(array('areacod  => ?' => $areaCode))
+           ->group(array('cliente'))
+            ->order('cliente');
+         return $this->fetchAll($select);
     }
     
 }

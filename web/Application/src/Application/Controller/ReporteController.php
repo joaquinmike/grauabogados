@@ -18,10 +18,22 @@ class ReporteController  extends BaseController {
         $tipo = $this->params()->fromQuery('tipo', NULL); 
         $persCode = $this->params()->fromQuery('codigo', NULL); 
         $site = $this->params()->fromQuery('site', NULL); 
+        
+        $date = new \DateTime();
+        //Fechas
+        $fechaIni = $date->format('Y') . '01';
+        $fechaFin = $date->format('Ym');
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
+        $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
+        if($tipo == \Auth\Entity\AuthPersonal::REPORTE_USUARIO){
+            $data = $modelPersonal->getGraficoPersonalByCliente($persCode,$fechaIni,$fechaFin);
+        }elseif($tipo = \Auth\Entity\AuthPersonal::REPORTE_CATEGORIA){
+            $data = $modelPersonal->getGraficoPersonalByCategoria($persCode,$fechaIni,$fechaFin);
+        }
         return new ViewModel(array(
             'tipo' => $tipo,
             'site' => $site,
+            'data' => $data
         ));
     }
     

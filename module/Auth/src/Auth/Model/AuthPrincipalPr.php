@@ -16,7 +16,7 @@ class AuthPrincipalPr extends AbstractRepository {
     /**
      * @var String Name of db table
      */
-    protected $_table = 'auth_tabla_pr';
+    protected $_table = 'tabla_pr';
 
     /**
      * @var Adapter Db
@@ -31,8 +31,8 @@ class AuthPrincipalPr extends AbstractRepository {
     public function getDataFiltroByCode($code){
         $select = $this->sql->select()->from(array('t1' => $this->_table))
             ->columns(array('princod'))
-            ->join(array('t2' => 'auth_tabla_se'), 't1.princod = t2.princod', 
-                array('secucod','secudes' => new \Zend\Db\Sql\Expression("concat(SUBSTRING(secudes,1,27),if(CHAR_LENGTH(secudes) > 26,'...',''))")))
+            ->join(array('t2' => 'tabla_se'), 't1.princod = t2.princod', 
+                array('secucod','secudes' => new \Zend\Db\Sql\Expression("concat(SUBSTRING(secudes,1,27),(CASE WHEN LEN(secudes) > 26 THEN '...' ELSE '' END))")))
             ->where(array('t1.princod = ?' => $code))
             ->order(array('secucod'));
         return $this->fetchAll($select);

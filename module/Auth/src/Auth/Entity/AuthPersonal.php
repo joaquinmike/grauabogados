@@ -28,7 +28,7 @@ class AuthPersonal {
         foreach ($paginator as $value){
             $result[$value['pert_id']]['cat']['pert_id'] = $value['pert_id'];
             $result[$value['pert_id']]['cat']['pert_nombre'] = $value['pert_nombre'];
-            $result[$value['pert_id']]['data'][$value['pers_id']] = $value;
+            $result[$value['pert_id']]['data'][$value['percod']] = $value;
         }
         return $result;
     }
