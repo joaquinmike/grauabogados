@@ -34,39 +34,39 @@
 
 </div><!--end #content-->
 <!-- END CONTENT -->
-<script src="<?php echo $this->server('static', 'assets/js/libs/raphael/raphael-min.js', true)?>"></script>
-<script src="<?php echo $this->server('static', 'assets/js/libs/morris.js/morris.min.js', true)?>"></script>
-<?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
-    <script type="text/javascript">
-        Morris.Bar({
-            element: 'morris-graph',
-            data: [
-                {x: '2011 Q1', y: 10},
-                {x: '2011 Q2', y: 2},
-                {x: '2011 Q3', y: 0},
-                {x: '2011 Q4', y: 2}
-            ],
-            xkey: 'x',
-            ykeys: ['y'],
-            labels: ['Y'],
-            barColors: $('#morris-graph').data('colors').split(',')
-        });
+<?php if(!empty($this->data)) { ?>
+    <script src="<?php echo $this->server('static', 'assets/js/libs/raphael/raphael-min.js', true)?>"></script>
+    <script src="<?php echo $this->server('static', 'assets/js/libs/morris.js/morris.min.js', true)?>"></script>
+    <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
+        <script type="text/javascript">
+            Morris.Bar({
+                element: 'morris-graph',
+                data: [
+                    <?php foreach ($this->data as $value) { ?>
+                        {x: <?php echo $value['cliente']?>, y: '<?php echo $value['tiempo']?>'},
+                    <?php } ?>
+                ],
+                xkey: 'x',
+                ykeys: ['y'],
+                labels: ['Y'],
+                barColors: $('#morris-graph').data('colors').split(',')
+            });
 
-    </script>
-<?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
-    <script type="text/javascript">
-        Morris.Donut({
-            element: 'morris-graph',
-            data: [
-                {value: 70, label: 'foo', formatted: 'at least 70%'},
-                {value: 15, label: 'bar', formatted: 'approx. 15%'},
-                {value: 10, label: 'baz', formatted: 'approx. 10%'},
-                {value: 5, label: 'A really really long label', formatted: 'at most 5%'}
-            ],
-            colors: $('#morris-graph').data('colors').split(','),
-            formatter: function (x, data) {
-                return data.formatted;
-            }
-        });
-    </script>
+        </script>
+    <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
+        <script type="text/javascript">
+            Morris.Donut({
+                element: 'morris-graph',
+                data: [
+                    <?php foreach ($this->data as $value) { ?>
+                        {value: <?php echo $value['tiempo']?>, label: '<?php echo $value['cliente']?>', formatted: ''},
+                    <?php } ?>
+                ],
+                colors: $('#morris-graph').data('colors').split(','),
+                formatter: function (x, data) {
+                    return data.formatted;
+                }
+            });
+        </script>
+    <?php } ?>
 <?php } ?>

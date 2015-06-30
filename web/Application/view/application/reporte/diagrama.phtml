@@ -10,26 +10,15 @@
 
             <div class="row">
                <div class="col-lg-12">
-                    <h2 class="text-primary">Diagrama charts</h2>
+                    <h2 class="text-primary">Área charts</h2>
+                    <h4>Horas x Cliente</h4>
                 </div>
-                <div class="col-lg-12">
-                    <h4>Examples</h4>
-                </div>
-                <div class="col-lg-3 col-md-4">
-                    <article class="margin-bottom-xxl">
-                        <p>
-                            Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. 
-                            Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, 
-                            legimus senserit definiebas an eos.
-                        </p>
-                    </article>
-                </div><!--end .col -->
                 <div class="col-lg-offset-1 col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <?php if($this->tipo == \Auth\Entity\AuthPersonal::REPORTE_CATEGORIA) { ?>
+                            <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
                                 <div id="morris-graph" class="height-7" data-colors="#2196F3"></div>
-                            <?php }elseif($this->tipo == \Auth\Entity\AuthPersonal::REPORTE_USUARIO) { ?>
+                            <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
                                 <div id="morris-graph" class="height-6" data-colors="#9C27B0,#2196F3,#0aa89e,#FF9800"></div>
                             <?php } ?>
                         </div><!--end .card-body -->
@@ -48,7 +37,7 @@
 <?php if(!empty($this->data)) { ?>
     <script src="<?php echo $this->server('static', 'assets/js/libs/raphael/raphael-min.js', true)?>"></script>
     <script src="<?php echo $this->server('static', 'assets/js/libs/morris.js/morris.min.js', true)?>"></script>
-    <?php if($this->tipo == \Auth\Entity\AuthPersonal::REPORTE_CATEGORIA) { ?>
+    <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
         <script type="text/javascript">
             Morris.Bar({
                 element: 'morris-graph',
@@ -64,7 +53,7 @@
             });
 
         </script>
-    <?php }elseif($this->tipo == \Auth\Entity\AuthPersonal::REPORTE_USUARIO) { ?>
+    <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
         <script type="text/javascript">
             Morris.Donut({
                 element: 'morris-graph',
@@ -80,5 +69,4 @@
             });
         </script>
     <?php } ?>
-
 <?php } ?>
