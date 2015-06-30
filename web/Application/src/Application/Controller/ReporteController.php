@@ -26,6 +26,10 @@ class ReporteController  extends BaseController {
     }
     
     public function personalAction(){
+        $date = new \DateTime();
+        //Fechas
+        $fechaIni = $date->format('Y') . '05';
+        $nombre = \Application\Entity\Functions::getNombreMesByMesId($date->format('m')) . ' ' . $date->format('Y');
         $tipo = $this->params()->fromQuery('tipo', \Application\Entity\Functions::GRAFICO_CIRCULAR); 
         $persCode = $this->params()->fromQuery('codigo', NULL); 
         $site = $this->params()->fromQuery('site', NULL); 
@@ -33,6 +37,7 @@ class ReporteController  extends BaseController {
         return new ViewModel(array(
             'tipo' => $tipo,
             'site' => $site,
+            'nombre' => $nombre,
         ));
     }
     
