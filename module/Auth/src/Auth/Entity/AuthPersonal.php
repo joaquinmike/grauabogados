@@ -14,8 +14,6 @@ class AuthPersonal {
     //put your code here
     const ESTADO_ACTIVO = 'A';
     const ESTADO_INACTIVO = 'I';
-    const REPORTE_USUARIO = 'U';
-    const REPORTE_CATEGORIA = 'C';
     
     static function removeFilterPersonal(){
         $sesPersonal = new Container('personal');    
@@ -33,12 +31,8 @@ class AuthPersonal {
         return $result;
     }
     
-    static function getUrlReportePersonal($codigo,$tipo = self::REPORTE_USUARIO){
-        if($tipo == self::REPORTE_USUARIO){
-            $url = 'tipo=' . self::REPORTE_USUARIO . '&codigo=' . $codigo;
-        }else{
-            $url = 'tipo=' . self::REPORTE_CATEGORIA . '&codigo=' . $codigo;
-        }
+    static function getUrlReportePersonal($codigo,$tipo = \Application\Entity\Functions::GRAFICO_CIRCULAR){
+        $url = 'tipo=' . $tipo . '&codigo=' . $codigo;
         return $url;
     }
     

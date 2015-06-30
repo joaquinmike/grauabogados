@@ -15,7 +15,18 @@ use Zend\View\Model\ViewModel;
 class ReporteController  extends BaseController {
     
     public function diagramaAction(){
-        $tipo = $this->params()->fromQuery('tipo', NULL); 
+        $tipo = $this->params()->fromQuery('tipo', \Application\Entity\Functions::GRAFICO_CIRCULAR); 
+        $persCode = $this->params()->fromQuery('codigo', NULL); 
+        $site = $this->params()->fromQuery('site', NULL); 
+        \Auth\Entity\AuthPersonal::removeFilterPersonal();
+        return new ViewModel(array(
+            'tipo' => $tipo,
+            'site' => $site,
+        ));
+    }
+    
+    public function personalAction(){
+        $tipo = $this->params()->fromQuery('tipo', \Application\Entity\Functions::GRAFICO_CIRCULAR); 
         $persCode = $this->params()->fromQuery('codigo', NULL); 
         $site = $this->params()->fromQuery('site', NULL); 
         

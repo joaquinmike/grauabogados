@@ -21,6 +21,9 @@ class Functions {
     const SEXO_MASCULINO = 'M';
     const SEXO_FEMENINO = 'F';
     
+    const GRAFICO_CIRCULAR = 1;
+    const GRAFICO_BARRAS = 2;
+    
     
     const SITE_PERSONAL = 'personal';
     /**
