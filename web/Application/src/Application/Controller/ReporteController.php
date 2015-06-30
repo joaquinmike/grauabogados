@@ -23,6 +23,7 @@ class ReporteController  extends BaseController {
         //Fechas
         $fechaIni = $date->format('Y') . '05';
         $fechaFin = $date->format('Ym');
+        $nombre = \Application\Entity\Functions::getNombreMesByMesId($date->format('m')) . ' ' . $date->format('Y');
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
         $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
         $data = $modelPersonal->getGraficoPersonalByCategoria($persCode,$fechaIni,$fechaFin);
@@ -30,7 +31,7 @@ class ReporteController  extends BaseController {
             'tipo' => $tipo,
             'site' => $site,
             'data' => $data,
-            'year' => $date->format('Y'),
+            'nombre' => $nombre,
         ));
     }
     
@@ -43,6 +44,7 @@ class ReporteController  extends BaseController {
         //Fechas
         $fechaIni = $date->format('Y') . '05';
         $fechaFin = $date->format('Ym');
+        $nombre = \Application\Entity\Functions::getNombreMesByMesId($date->format('m')) . ' ' . $date->format('Y');
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
         $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
         $data = $modelPersonal->getGraficoPersonalByCliente($persCode,$fechaIni,$fechaFin);
@@ -50,7 +52,7 @@ class ReporteController  extends BaseController {
             'tipo' => $tipo,
             'site' => $site,
             'data' => $data,
-            'year' => $date->format('Y'),
+            'nombre' => $nombre,
         ));
     }
     
