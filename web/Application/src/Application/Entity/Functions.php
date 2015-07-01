@@ -1,9 +1,10 @@
 <?php
 
 /**
- * Description of Functions
+ * Clase con funciones Generales q sirven en todo el proyecto,
+ * también se agrega las constantes generales
  *
- * @author joaquinmike
+ * @author joaquinmike <jmike410@gmail.com>
  */
 
 namespace Application\Entity;
@@ -26,7 +27,7 @@ class Functions {
     
     const SITE_PERSONAL = 'personal';
     /**
-     * 
+     * Convertir un array (consulta sql) en un formato array q requiere el zend_form
      * @param type $data
      * @param type $item
      * @param type $default
@@ -43,7 +44,12 @@ class Functions {
         return $result;
     }
     
-    
+    /**
+     * 
+     * @param type $site
+     * @param type $actual
+     * @return string
+     */
     static function getBreadCrumb($site,$actual){
         $url = '<li><a href="/">Inicio</a></li>';
         if($site == self::SITE_PERSONAL){

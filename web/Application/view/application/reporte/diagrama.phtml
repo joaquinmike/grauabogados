@@ -10,8 +10,29 @@
 
             <div class="row">
                <div class="col-lg-12">
-                    <h2 class="text-primary">Área charts</h2>
-                    <h4>Horas x Cliente - <?php echo $this->nombre?></h4>
+                   <div class="col-lg-6">
+                        <h2 class="text-primary">Área charts</h2>
+                        <h4>Horas x Cliente - <?php echo $this->nombre?></h4>
+                   </div>
+                   <div class="col-lg-6">
+                       <div class="btn-group btn-group-sm pull-right">
+                            <button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> Tipo
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right animation-dock" role="menu">
+                                <li class="<?php echo ($tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) ? 'active' : ''?>">
+                                    <a href="/application/reporte/diagrama?<?php echo \Auth\Entity\AuthPersonal::getUrlReportePersonal($this->codigo,\Application\Entity\Functions::GRAFICO_CIRCULAR)?>&site=<?php echo \Application\Entity\Functions::SITE_PERSONAL?>">
+                                        Circular
+                                    </a>
+                                </li>
+                                 <li class="<?php echo ($tipo == \Application\Entity\Functions::GRAFICO_BARRAS) ? 'active' : ''?>">
+                                    <a href="/application/reporte/diagrama?<?php echo \Auth\Entity\AuthPersonal::getUrlReportePersonal($this->codigo,\Application\Entity\Functions::GRAFICO_BARRAS)?>&site=<?php echo \Application\Entity\Functions::SITE_PERSONAL?>">
+                                        Barras
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                   </div>
                 </div>
                 <div class="col-lg-offset-1 col-md-8">
                     <div class="card">

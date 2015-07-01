@@ -32,6 +32,7 @@ class ReporteController  extends BaseController {
             'site' => $site,
             'data' => $data,
             'nombre' => $nombre,
+            'codigo' => $persCode,
         ));
     }
     
@@ -53,6 +54,7 @@ class ReporteController  extends BaseController {
             'site' => $site,
             'data' => $data,
             'nombre' => $nombre,
+            'codigo' => $persCode,
         ));
     }
     
