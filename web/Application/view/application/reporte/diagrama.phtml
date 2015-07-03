@@ -80,7 +80,7 @@
                 element: 'morris-graph',
                 data: [
                     <?php foreach ($this->data as $value) { ?>
-                        {value: <?php echo $value['tiempo']?>, label: '<?php echo $value['cliente']?>', formatted: ''},
+                        {value: <?php echo $value['tiempo']?>, label: '<?php echo $value['cliente']?>', formatted: '<?php echo $value['cliente']?> - <?php echo $value['tiempo']?>'},
                     <?php } ?>
                 ],
                 colors: $('#morris-graph').data('colors').split(','),
