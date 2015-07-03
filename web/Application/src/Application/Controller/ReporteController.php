@@ -15,25 +15,46 @@ use Zend\View\Model\ViewModel;
 class ReporteController  extends BaseController {
     
     public function diagramaAction(){
-        $tipo = $this->params()->fromQuery('tipo', NULL); 
+        $tipo = $this->params()->fromQuery('tipo', \Application\Entity\Functions::GRAFICO_CIRCULAR); 
         $persCode = $this->params()->fromQuery('codigo', NULL); 
         $site = $this->params()->fromQuery('site', NULL); 
         
         $date = new \DateTime();
         //Fechas
-        $fechaIni = $date->format('Y') . '01';
+        $fechaIni = $date->format('Y') . '05';
         $fechaFin = $date->format('Ym');
+        $nombre = \Application\Entity\Functions::getNombreMesByMesId($date->format('m')) . ' ' . $date->format('Y');
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
         $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
-        if($tipo == \Auth\Entity\AuthPersonal::REPORTE_USUARIO){
-            $data = $modelPersonal->getGraficoPersonalByCliente($persCode,$fechaIni,$fechaFin);
-        }elseif($tipo = \Auth\Entity\AuthPersonal::REPORTE_CATEGORIA){
-            $data = $modelPersonal->getGraficoPersonalByCategoria($persCode,$fechaIni,$fechaFin);
-        }
+        $data = $modelPersonal->getGraficoPersonalByCategoria($persCode,$fechaIni,$fechaFin);
         return new ViewModel(array(
             'tipo' => $tipo,
             'site' => $site,
-            'data' => $data
+            'data' => $data,
+            'nombre' => $nombre,
+            'codigo' => $persCode,
+        ));
+    }
+    
+    public function personalAction(){
+        $tipo = $this->params()->fromQuery('tipo', \Application\Entity\Functions::GRAFICO_CIRCULAR); 
+        $persCode = $this->params()->fromQuery('codigo', NULL); 
+        $site = $this->params()->fromQuery('site', NULL); 
+        
+        $date = new \DateTime();
+        //Fechas
+        $fechaIni = $date->format('Y') . '05';
+        $fechaFin = $date->format('Ym');
+        $nombre = \Application\Entity\Functions::getNombreMesByMesId($date->format('m')) . ' ' . $date->format('Y');
+        \Auth\Entity\AuthPersonal::removeFilterPersonal();
+        $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
+        $data = $modelPersonal->getGraficoPersonalByCliente($persCode,$fechaIni,$fechaFin);
+        return new ViewModel(array(
+            'tipo' => $tipo,
+            'site' => $site,
+            'data' => $data,
+            'nombre' => $nombre,
+            'codigo' => $persCode,
         ));
     }
     
