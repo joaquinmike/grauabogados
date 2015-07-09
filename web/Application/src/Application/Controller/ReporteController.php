@@ -21,7 +21,7 @@ class ReporteController  extends BaseController {
         
         $date = new \DateTime();
         //Fechas
-        $fechaIni = $date->format('Y') . '05';
+        $fechaIni = $date->format('Y') . '07';
         $fechaFin = $date->format('Ym');
         $nombre = \Application\Entity\Functions::getNombreMesByMesId($date->format('m')) . ' ' . $date->format('Y');
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
@@ -43,7 +43,7 @@ class ReporteController  extends BaseController {
         
         $date = new \DateTime();
         //Fechas
-        $fechaIni = $date->format('Y') . '05';
+        $fechaIni = $date->format('Y') . '07';
         $fechaFin = $date->format('Ym');
         $nombre = \Application\Entity\Functions::getNombreMesByMesId($date->format('m')) . ' ' . $date->format('Y');
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
@@ -56,6 +56,5 @@ class ReporteController  extends BaseController {
             'nombre' => $nombre,
             'codigo' => $persCode,
         ));
-    }
-    
+    }    
 }
