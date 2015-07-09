@@ -29,7 +29,7 @@ class AuthPersonal extends AbstractRepository {
 
     public function getPersonalAllByOrder($page, $filter = NULL, $search = NULL, $limit = \Application\Entity\Functions::LIMIT_DEFAULT) {
         $select = $this->sql->select()->from(array('t1' => $this->_table))
-                ->columns(array('percod',
+                ->columns(array('percod','area',
                     'nombreper' => new \Zend\Db\Sql\Expression("dbo.WordCap(Lower(nombreper))"),
                     'apepatper' => new \Zend\Db\Sql\Expression("dbo.WordCap(Lower(apepatper))"),
                     'apematper' => new \Zend\Db\Sql\Expression("dbo.WordCap(Lower(apematper))"),

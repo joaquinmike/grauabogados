@@ -37,10 +37,14 @@
                 <div class="col-lg-offset-1 col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
-                                <div id="morris-graph" class="height-7" data-colors="#2196F3"></div>
-                            <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
-                                <div id="morris-graph" class="height-6" data-colors="#9C27B0,#2196F3,#0aa89e,#FF9800"></div>
+                            <?php if(!empty($this->data)) { ?>
+                                <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
+                                    <div id="morris-graph" class="height-7" data-colors="#2196F3"></div>
+                                <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
+                                    <div id="morris-graph" class="height-6" data-colors="#9C27B0,#2196F3,#0aa89e,#FF9800"></div>
+                                <?php } ?>
+                            <?php } else{ ?>
+                                <p>No hay data</p>
                             <?php } ?>
                         </div><!--end .card-body -->
                     </div><!--end .card -->
@@ -64,7 +68,7 @@
                 element: 'morris-graph',
                 data: [
                     <?php foreach ($this->data as $value) { ?>
-                        {x: <?php echo $value['cliente']?>, y: '<?php echo $value['tiempo']?>'},
+                        {x: '<?php echo $value['cliente']?>', y: <?php echo (float)$value['tiempo']?>},
                     <?php } ?>
                 ],
                 xkey: 'x',
@@ -80,7 +84,7 @@
                 element: 'morris-graph',
                 data: [
                     <?php foreach ($this->data as $value) { ?>
-                        {value: <?php echo $value['tiempo']?>, label: '<?php echo $value['cliente']?>', formatted: '<?php echo $value['cliente']?> - <?php echo $value['tiempo']?>'},
+                        {value: <?php echo $value['tiempo']?>, label: '<?php echo $value['cliente']?>', formatted: '<?php echo $value['cliente']?> - <?php echo number_format($value['tiempo'], 2)?>'},
                     <?php } ?>
                 ],
                 colors: $('#morris-graph').data('colors').split(','),

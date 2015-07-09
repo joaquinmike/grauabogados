@@ -24,7 +24,7 @@ class AuthPersonal {
     static function formatGrupoPersonalByPaginator($paginator){
         $result = array();
         foreach ($paginator as $value){
-            $result[$value['pert_id']]['cat']['pert_id'] = $value['pert_id'];
+            $result[$value['pert_id']]['cat']['pert_id'] = $value['area'];
             $result[$value['pert_id']]['cat']['pert_nombre'] = $value['pert_nombre'];
             $result[$value['pert_id']]['data'][$value['percod']] = $value;
         }
