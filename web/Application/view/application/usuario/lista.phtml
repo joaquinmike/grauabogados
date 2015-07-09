@@ -110,6 +110,7 @@
                                     </h2>
                                 </div>
                                 <div class="list-results">
+                                     <?php $count = 1?>
                                     <?php foreach ($categoria['data'] as $value) { ?>
                                         <div class="col-xs-12 col-lg-6 hbox-xs">
                                             <a href="/application/reporte/personal?<?php echo \Auth\Entity\AuthPersonal::getUrlReportePersonal($value['percod'])?>&site=<?php echo \Application\Entity\Functions::SITE_PERSONAL?>"> 
@@ -156,6 +157,11 @@
                                                 </div><!--end .hbox-column -->
                                             </a>
                                         </div><!--end .hbox-xs -->
+                                        <?php if($count % 2 == 0) { ?>
+                                            </div>
+                                            <div class="list-results">
+                                        <?php } ?>
+                                        <?php $count++?>
                                     <?php } ?>
                                 </div><!--end .list-results -->
                             <?php } ?>
