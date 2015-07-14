@@ -11,6 +11,7 @@ namespace Application\Controller;
 
 use Util\Controller\BaseController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 class ReporteController  extends BaseController {
     
@@ -42,12 +43,53 @@ class ReporteController  extends BaseController {
         $site = $this->params()->fromQuery('site', NULL); 
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
         $formFilter = $this->getServiceLocator()->get('Form\FormReportePersonal');
+        $modelPersonal = $this->getServiceLocator()->get('Model\auth_personal');
+        $personal = $modelPersonal->getDataPersonalByPersCodigo($persCode);
+        $dtaPersonal = $modelPersonal->getListaPersonalByArId($personal['area']);
+        $formFilter->setData(array(
+            'anio_start' => date('Y'),
+            'anio_end' => date('Y'),
+            'mes_start' => date('m'),
+            'mes_end' => date('m'),
+            'date_start' => date('d/m/Y'),
+            'date_end' => date('d/m/Y'),
+            'pers_area' => $personal['area']
+        ));
         return new ViewModel(array(
             'formFilter' => $formFilter,
             'tipo' => $tipo,
             'site' => $site,
             'nombre' => $nombre,
+            'personal' => $personal,
+            'lista' => $dtaPersonal,
         ));
+    }
+    
+    public function personalListaAction(){
+        $post = $this->params()->fromPost();
+        $modelPersonal = $this->getServiceLocator()->get('Model\auth_personal');
+        $personal = $modelPersonal->getListaPersonalByArId($post['id']);
+        if(!empty($personal)){
+            $result = array('success' => 1, 'data' => $personal);
+        }else{
+            $result = array('success' => 0, 'data' => NULL);
+        }
+        $json = new JsonModel($result);
+        return $json;
+    }
+    
+    public function personalGraficoAction(){
+        $post = $this->params()->fromPost();
+        
+        $viewModel = new ViewModel();
+        $viewModel->setVariables(
+            array(
+                'tipo' => $post['form_tipo'],
+                'post' => $post,
+            ))
+            ->setTerminal(true);
+        
+        return $viewModel;
     }
     
 }
