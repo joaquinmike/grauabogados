@@ -70,7 +70,10 @@ class AuthPersonal extends AbstractRepository {
     }
     
 
-    public function getGraficoPersonalByCliente($perCod, $fechaIni, $fechaFin) {
+    public function getGraficoPersonalByCliente($post) {
+        echo '<pre>';
+        print_r($post);
+        echo '</pre>';exit;
         $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_area_anomes'))
                 ->columns(array('cliente',
                                 'tiempo' => new \Zend\Db\Sql\Expression('sum(horas)')                    
@@ -145,5 +148,4 @@ class AuthPersonal extends AbstractRepository {
         }
         return $this->fetchAll($select);
     }
-
 }

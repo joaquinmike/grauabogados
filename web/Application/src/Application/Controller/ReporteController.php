@@ -45,13 +45,13 @@ class ReporteController  extends BaseController {
         $tipo = $this->params()->fromQuery('tipo', \Application\Entity\Functions::GRAFICO_CIRCULAR); 
         $persCode = $this->params()->fromQuery('codigo', NULL); 
         $site = $this->params()->fromQuery('site', NULL); 
-        $nom = $this->params()->fromQuery('nom', NULL); 
        
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
+        
+        $formFilter = $this->getServiceLocator()->get('Form\FormReportePersonal');
         $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
         $personal = $modelPersonal->getDataPersonalByPersCodigo($persCode);
         $dtaPersonal = $modelPersonal->getListaPersonalByArId($personal['area']);
-        //$data = $modelPersonal->getGraficoPersonalByCliente($persCode,$fechaIni,$fechaFin);
         
         $formFilter->setData(array(
             'anio_start' => date('Y'),
@@ -64,12 +64,12 @@ class ReporteController  extends BaseController {
         ));
         
         return new ViewModel(array(
+            'formFilter' => $formFilter,
             'tipo' => $tipo,
             'site' => $site,
-            'data' => $data,
-            'nombre' => $nombre,
             'codigo' => $persCode,
-            'abogado'=> $nom,
+            'personal' => $personal,
+            'lista' => $dtaPersonal,
         ));
     } 
     
@@ -88,7 +88,7 @@ class ReporteController  extends BaseController {
     
     public function personalGraficoAction(){
         $post = $this->params()->fromPost();
-        
+        $data = $modelPersonal->getGraficoPersonalByCliente($post);
         $viewModel = new ViewModel();
         $viewModel->setVariables(
             array(

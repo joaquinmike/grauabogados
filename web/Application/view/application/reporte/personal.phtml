@@ -1,3 +1,4 @@
+<link type="text/css" rel="stylesheet" href="<?php echo $this->server('static', 'assets/css/theme-default/libs/bootstrap-datepicker/datepicker3', true)?>" />
 <!-- BEGIN CONTENT-->
 <div id="content">
     <section>
@@ -35,21 +36,104 @@
                    </div>
                 </div>
                 <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                           <?php if(!empty($this->data)) { ?>
-                                <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
-                                    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-                                <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
-                                    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>                                    
-                                <?php } ?>
-                            <?php } else{ ?>
-                                <p>No hay información para mostrar</p>
-                            <?php } ?>
-                        </div><!--end .card-body -->
-                    </div><!--end .card -->
-                    <!--<em class="text-caption">Grouped bar chart - Grau</em>-->
-                </div><!--end .col -->
+                    <div class="row">
+                        <div class="col-lg-4 col-md-3">
+                            <form id="form-filter" action="" method="post" class="form">
+                                <input type="hidden" name="form_tipo" id="form_tipo" value="<?php echo $this->tipo?>">
+                                <div class="form-group">
+                                    <label>Año desde - Año hasta</label>
+                                    <div class="input-daterange input-group" id="demo-date-range">
+                                        <div class="input-group-content">
+                                            <?php echo $this->formRow($this->formFilter->get('anio_start'))?>
+                                        </div>
+                                        <span class="input-group-addon">-</span>
+                                            <div class="input-group-content">
+                                               <?php echo $this->formRow($this->formFilter->get('anio_end'))?>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mes desde - Mes hasta</label>
+                                    <div class="input-daterange input-group" id="demo-date-range">
+                                        <div class="input-group-content">
+                                            <?php echo $this->formRow($this->formFilter->get('mes_start'))?>
+                                        </div>
+                                        <span class="input-group-addon">-</span>
+                                            <div class="input-group-content">
+                                               <?php echo $this->formRow($this->formFilter->get('mes_end'))?>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-daterange input-group" id="demo-date-range">
+                                        <div class="input-group-content">
+                                            <?php echo $this->formRow($this->formFilter->get('date_start'))?>
+                                            <label>Fecha rango</label>
+                                        </div>
+                                        <span class="input-group-addon">a</span>
+                                            <div class="input-group-content">
+                                                <?php echo $this->formRow($this->formFilter->get('date_end'))?>
+                                                <div class="form-control-line"></div>
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <hr class="ruler-xxl" style="margin: 10px 0 15px 0">
+                                </div>
+                                <div class="form-group">
+                                     <label>Área</label>
+                                     <?php echo $this->formRow($this->formFilter->get('pers_area'))?>
+                                </div>
+                                <div class="form-group">
+                                    <label>Personal</label>
+                                    <div style="height: 350px; overflow-y: scroll;">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Nombre</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="table-personal">
+                                                <?php foreach ($this->lista as $personal) { ?>
+                                                    <?php $check = ''?>
+                                                    <?php if($personal['percod'] == $this->personal['percod']) { ?>
+                                                         <?php $check = 'checked="checked"'?>
+                                                    <?php } ?>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="checkbox" name="personal[<?php echo $personal['percod']?>]" 
+                                                                id="personal[<?php echo $personal['percod']?>]" value="<?php echo $personal['percod']?>" <?php echo $check?>/>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $personal['apepatper']. ' ' . $personal['apematper'] . ', ' .
+                                                                $personal['nombreper']
+                                                            ?>
+                                                        </td>
+                                                    </tr>
+
+                                                <?php }?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn ink-reaction btn-raised btn-sm btn-primary" type="button" onclick="getGenerarGrafico()">
+                                        Generar
+                                    </button>
+                                </div>
+                            </form>
+                            
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div id="personal-graph" class="card-body">
+                                </div><!--end .card-body -->
+                            </div><!--end .card -->
+                            <em class="text-caption">Grouped bar chart</em>
+                        </div><!--end .col -->
+                    </div>
+                </div>
             </div><!--end .row -->
         </div><!--end .section-body -->
     </section>
@@ -57,130 +141,89 @@
 
 </div><!--end #content-->
 <!-- END CONTENT -->
-<?php if(!empty($this->data)) { ?>
+<?php if(!empty($this->personal)) { ?>
     <!--Grafico Diter-->
     <script src="<?php echo $this->server('static', 'assets/js/highcharts/js/highcharts.js', true)?>"></script>
     <script src="<?php echo $this->server('static', 'assets/js/highcharts/js/modules/exporting.js', true)?>"></script>    
     <script src="<?php echo $this->server('static', 'assets/js/highcharts/js/modules/data.js', true)?>"></script>
     <script src="<?php echo $this->server('static', 'assets/js/highcharts/js/modules/drilldown.js', true)?>"></script>
-   
-    <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
-        <script type="text/javascript">
-            $(function () {
-                // Create the chart
-                $('#container').highcharts({
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: '<?php echo $this->abogado?>'
-                    },
-                    subtitle: {
-                        text: '<?php echo $this->nombre?>'
-                    },
-                    xAxis: {
-                        type: 'category'
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Total porcentaje en Tiempo'
-                        }
+    <script src="<?php echo $this->server('static', 'assets/js/libs/bootstrap-datepicker/bootstrap-datepicker.js', true)?>"></script>
+    <script src="<?php echo $this->server('static', 'assets/js/libs/bootstrap-datepicker/locales/bootstrap-datepicker.es', true)?>"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#date_start').datepicker({format: 'dd/mm/yyyy',language: 'es',
+                autoclose: true
+            }).on('changeDate',function(ev){
+                //alert($("#date_end").val());
+                getGenerarGrafico();
+            });
 
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    plotOptions: {
-                        series: {
-                            borderWidth: 0,
-                            dataLabels: {
-                                enabled: true,
-                                format: '{point.y}'
-                            }
-                        }
-                    },
+            $('#date_end').datepicker({format: 'dd/mm/yyyy',language: 'es',
+                autoclose: true
+            }).on('changeDate',function(ev){
+                //alert($("#date_end").val());
+                getGenerarGrafico();
+            });
+        });
 
-                    tooltip: {
-                        headerFormat: '',//'<span style="font-size:11px">{series.name} </span><br>',
-                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y} Horas</b> <br/>'
-                    },
-
-                    series: [{
-                        name: "Cliente",
-                        colorByPoint: true,
-                        data: [            
-                        <?php foreach ($this->data as $value) { ?>
-                            {name: "<?php echo $value['cliente'];?>", y: <?php echo $value['tiempo'];?>,drilldown: "<?php echo $value['cliente'];?>"},                         
-                        <?php } ?>
-                        ]
-                    }],
-                    drilldown: {
-                        series: [
-                        <?php foreach ($this->data as $value) { ?>
-                        {name: "<?php echo $value['cliente'];?>",id: "<?php echo $value['cliente'];?>",
-                            data: [
-                                ["v11.0",24.13],
-                                ["v8.0",17.2],
-                                ["v9.0",8.11],
-                                ["v10.0",5.33],
-                                ["v6.0",1.06],
-                                ["v7.0",0.5]
-                            ]
-                        },  
-                        <?php } ?>
-                        ]
+        function getListaPersonal(id){
+            $.ajax({
+                url: '/application/reporte/personal-lista',
+                data: {'id': id.value},
+                type: 'POST',
+                beforeSend: function() {
+                   $('#table-personal').html('<tr><td>Cargando...</td></tr>')
+                },
+                success: function(json) {
+                    var result = '';
+                    if(json.success == 1){
+                        $.each(json.data, function(i, item) {
+                            result += '<tr><td>';
+                            result += '<input type="checkbox" name="personal[' + item.percod + ']" id="personal[' + item.percod + ']" value="' + item.percod + '" />';
+                            result += '</td><td>';
+                            result += item.apepatper + ' ' + item.apematper + ', ' + item.nombreper;
+                            result += '</td></tr>';
+                        });
+                        $('#table-personal').html(result);
+                        getGenerarGrafico();
                     }
-                });
+                },
+                dataType: 'json'
             });
-	</script>
-    <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
-        
-        <script type="text/javascript">
-            $(function () {
-                $('#container').highcharts({
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
-                    title: {
-                        text: '<?php echo $this->abogado?>'
-                    },
-                    subtitle: {
-                        text: '<?php echo $this->nombre?>'
-                    }, 
-                    tooltip: {
-                        //pointFormat: '{series.name}: <b>{point.y} Horas</b>'
-                        pointFormat: '<b>{point.y} Horas ({point.percentage:.1f}%)</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                format: '<b>{point.name} </b> {point.y}',
-                                style: {
-                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                                }
-                            },
-                            showInLegend: true
-                        }
-                    },
-                    series: [{
-                        name: "Tiempo",
-                        colorByPoint: true,
-                        data: [                
-                                <?php foreach ($this->data as $value) { ?>
-                                    {name: "<?php echo $value['cliente'];?>", y: <?php echo $value['tiempo'];?>},                         
-                                <?php } ?>
-                              ]
-                    }]
-                });                                
+            return false;
+        }
+
+        function getGenerarGrafico(){
+            var form = $('#form-filter').serialize();
+            $.ajax({
+                url: '/application/reporte/personal-grafico',
+                data: form,
+                type: 'POST',
+                beforeSend: function() {
+                   $('#personal-graph').html('<img src="<?php echo $this->server('static', 'img/cargando.gif', true)?>" title="Cargando Grafico">')
+                },
+                success: function(html) {
+                    $('#personal-graph').html(html)
+                },
+                dataType: 'html'
             });
-        </script> 
-        
-        
-    <?php } ?>
+            return false;
+        }
+
+        window.onload = function() {
+            getGenerarGrafico();
+        }
+    </script>
+
+    <style>
+        .form-control {
+            font-size: 12px !important;
+            height: 25px !important;
+            padding: 0;
+        }
+        body{
+            line-height: 1!important;
+        }
+    </style>
 <?php } ?>
