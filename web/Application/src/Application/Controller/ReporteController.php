@@ -46,17 +46,23 @@ class ReporteController  extends BaseController {
         $persCode = $this->params()->fromQuery('codigo', NULL); 
         $site = $this->params()->fromQuery('site', NULL); 
         $nom = $this->params()->fromQuery('nom', NULL); 
-        
-        $date = new \DateTime();
-        //Fechas
-        $fechaIni = $date->format('Y') . '06';
-        $fechaFin = $date->format('Y') . '06';
-        //$fechaIni = $date->format('Ym');
-        //$fechaFin = $date->format('Ym');
-        $nombre = \Application\Entity\Functions::getNombreMesByMesId($date->format('m')) . ' ' . $date->format('Y');
+       
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
         $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
-        $data = $modelPersonal->getGraficoPersonalByCliente($persCode,$fechaIni,$fechaFin);
+        $personal = $modelPersonal->getDataPersonalByPersCodigo($persCode);
+        $dtaPersonal = $modelPersonal->getListaPersonalByArId($personal['area']);
+        //$data = $modelPersonal->getGraficoPersonalByCliente($persCode,$fechaIni,$fechaFin);
+        
+        $formFilter->setData(array(
+            'anio_start' => date('Y'),
+            'anio_end' => date('Y'),
+            'mes_start' => date('m'),
+            'mes_end' => date('m'),
+            'date_start' => date('d/m/Y'),
+            'date_end' => date('d/m/Y'),
+            'pers_area' => $personal['area']
+        ));
+        
         return new ViewModel(array(
             'tipo' => $tipo,
             'site' => $site,
@@ -65,5 +71,32 @@ class ReporteController  extends BaseController {
             'codigo' => $persCode,
             'abogado'=> $nom,
         ));
-    }    
+    } 
+    
+    public function personalListaAction(){
+        $post = $this->params()->fromPost();
+        $modelPersonal = $this->getServiceLocator()->get('Model\auth_personal');
+        $personal = $modelPersonal->getListaPersonalByArId($post['id']);
+        if(!empty($personal)){
+            $result = array('success' => 1, 'data' => $personal);
+        }else{
+            $result = array('success' => 0, 'data' => NULL);
+        }
+        $json = new JsonModel($result);
+        return $json;
+    }
+    
+    public function personalGraficoAction(){
+        $post = $this->params()->fromPost();
+        
+        $viewModel = new ViewModel();
+        $viewModel->setVariables(
+            array(
+                'tipo' => $post['form_tipo'],
+                'post' => $post,
+            ))
+            ->setTerminal(true);
+        
+        return $viewModel;
+    }
 }

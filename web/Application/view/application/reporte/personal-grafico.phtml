@@ -1,0 +1,37 @@
+<?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
+    <div id="morris-graph" class="height-7" data-colors="#2196F3,#0aa89e"></div>
+<?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
+    <div id="morris-graph" class="height-6" data-colors="#9C27B0,#2196F3,#0aa89e,#FF9800"></div>
+<?php } ?>
+
+<script type="text/javascript">
+    <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
+        Morris.Bar({
+            element: 'morris-graph',
+            data: [
+                {x: '2011 Q1', y: 10},
+                {x: '2011 Q2', y: 2},
+                {x: '2011 Q3', y: 0},
+                {x: '2011 Q4', y: 2}
+            ],
+            xkey: 'x',
+            ykeys: ['y'],
+            labels: ['Y'],
+            barColors: $('#morris-graph').data('colors').split(',')
+        });
+    <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
+        Morris.Donut({
+            element: 'morris-graph',
+            data: [
+                {value: 70, label: 'foo', formatted: 'at least 70%'},
+                {value: 15, label: 'bar', formatted: 'approx. 15%'},
+                {value: 10, label: 'baz', formatted: 'approx. 10%'},
+                {value: 5, label: 'A really really long label', formatted: 'at most 5%'}
+            ],
+            colors: $('#morris-graph').data('colors').split(','),
+            formatter: function (x, data) {
+                return data.formatted;
+            }
+        });
+    <?php } ?>
+</script>

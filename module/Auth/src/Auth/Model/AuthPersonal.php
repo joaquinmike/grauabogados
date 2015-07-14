@@ -68,6 +68,7 @@ class AuthPersonal extends AbstractRepository {
         $data = $this->getPaginatorForSelect($select, $page, $limit);
         return $data;
     }
+    
 
     public function getGraficoPersonalByCliente($perCod, $fechaIni, $fechaFin) {
         $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_area_anomes'))
@@ -105,6 +106,43 @@ class AuthPersonal extends AbstractRepository {
                 ->group(array('usucod'))
                 ->order(array('tiempo desc'));        
         //echo 'Abogados: <br>'.$select->getSqlString();exit;
+        return $this->fetchAll($select);
+    }
+    
+    /**
+     * Retorna los datos generales de un personal
+     * @param type $persCodigo
+     * @return type
+     */
+    public function getDataPersonalByPersCodigo($persCodigo){
+        $select = $this->sql->select()->from(array('t1' => $this->_table))
+            ->columns(array('percod', 'nombreper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(nombreper,1)),SUBSTR(lower(nombreper),2))'),
+                'apepatper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apepatper,1)),SUBSTR(lower(apepatper),2))'),
+                'apematper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apematper,1)),SUBSTR(lower(apematper),2))'),
+                'codigo','direccion','telefono','email','area'))
+            ->join(array('t2' => 'auth_usuario'), 't1.pers_id = t2.pers_id', array('us_id'),'left')
+            ->join(array('t3' => 'auth_tabla_se'), new \Zend\Db\Sql\Expression("t3.princod = '002' and t3.secucod = t1.tipoper"), 
+                array('pert_id' => 'secucod','pert_nombre' => 'secudes'))
+            ->where(array('t1.percod = ?' => $persCodigo))
+            ->order(array('apepatper','apematper','nombreper'));
+        return $this->fetchRow($select);
+    }
+    
+    /**
+     * Retorna toda la lista de personal pertenecientes a un área
+     * @param type $arId
+     * @return type
+     */
+    public function getListaPersonalByArId($arId){
+        $select = $this->sql->select()->from(array('t1' => $this->_table))
+            ->columns(array('percod', 'nombreper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(nombreper,1)),SUBSTR(lower(nombreper),2))'),
+                'apepatper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apepatper,1)),SUBSTR(lower(apepatper),2))'),
+                'apematper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apematper,1)),SUBSTR(lower(apematper),2))'),
+                'codigo','direccion','telefono','email','area'))
+            ->order(array('apepatper','apematper','nombreper'));
+        if(!empty($arId)){
+            $select->where(array('t1.area = ?' => $arId));
+        }
         return $this->fetchAll($select);
     }
 
