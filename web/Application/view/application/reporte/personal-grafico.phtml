@@ -1,7 +1,7 @@
 <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
-    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <div id="container" style="margin: 0 auto"></div>
 <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
-    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <div id="container" style="margin: 0 auto"></div>
 <?php } ?>
 
 <script type="text/javascript">
@@ -13,10 +13,10 @@
                     type: 'column'
                 },
                 title: {
-                    text: '<?php echo $this->abogado?>'
+                    text: '<?php echo $this->personal['apepatper'] . ' ' . $this->personal['apematper'] . ', ' . $this->personal['nombreper']?>'
                 },
                 subtitle: {
-                    text: '<?php echo $this->nombre?>'
+                    text: '<?php echo $this->personal['pert_nombre']?>'
                 },
                 xAxis: {
                     type: 'category'
@@ -82,10 +82,10 @@
                     type: 'pie'
                 },
                 title: {
-                    text: '<?php echo $this->abogado?>'
+                     text: '<?php echo $this->personal['apepatper'] . ' ' . $this->personal['apematper'] . ', ' . $this->personal['nombreper']?>'
                 },
                 subtitle: {
-                    text: '<?php echo $this->nombre?>'
+                    text: '<?php echo $this->personal['pert_nombre']?>'
                 }, 
                 tooltip: {
                     //pointFormat: '{series.name}: <b>{point.y} Horas</b>'

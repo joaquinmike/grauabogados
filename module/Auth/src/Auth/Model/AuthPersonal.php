@@ -71,18 +71,18 @@ class AuthPersonal extends AbstractRepository {
     
 
     public function getGraficoPersonalByCliente($post) {
-        echo '<pre>';
-        print_r($post);
-        echo '</pre>';exit;
         $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_area_anomes'))
-                ->columns(array('cliente',
-                                'tiempo' => new \Zend\Db\Sql\Expression('sum(horas)')                    
-                    ))
-                ->where(array('abogado = ?' => $perCod))
-                ->where(array('anomes BETWEEN ? and ?' => array($fechaIni, $fechaFin)))
-                ->group(array('cliente'))                
-                ->quantifier('top 8')
-                ->order(array('tiempo desc')); 
+            ->columns(array('cliente',
+                            'tiempo' => new \Zend\Db\Sql\Expression('sum(horas)')                    
+                ))
+            ->where(array('anomes BETWEEN ? and ?' => array($post['anio_start'] . $post['mes_start'], $post['anio_end'] . $post['mes_start'])))
+            ->group(array('cliente'))                
+            ->quantifier('top 8')
+            ->order(array('tiempo desc')); 
+        if(!empty($post['personal'])){
+            $select->where->in('abogado', $post['personal']);
+            //$select->where(array('abogado in (?)' => $post['personal']));
+        }
         //echo 'Personal <br>'.$select->getSqlString();exit;
         return $this->fetchAll($select);
     }
@@ -119,15 +119,37 @@ class AuthPersonal extends AbstractRepository {
      */
     public function getDataPersonalByPersCodigo($persCodigo){
         $select = $this->sql->select()->from(array('t1' => $this->_table))
-            ->columns(array('percod', 'nombreper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(nombreper,1)),SUBSTR(lower(nombreper),2))'),
-                'apepatper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apepatper,1)),SUBSTR(lower(apepatper),2))'),
-                'apematper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apematper,1)),SUBSTR(lower(apematper),2))'),
+            ->columns(array('percod', 
+                'nombreper' => new \Zend\Db\Sql\Expression("dbo.WordCap(Lower(nombreper))"),
+                'apepatper' => new \Zend\Db\Sql\Expression("dbo.WordCap(Lower(apepatper))"),
+                'apematper' => new \Zend\Db\Sql\Expression("dbo.WordCap(Lower(apematper))"),                
                 'codigo','direccion','telefono','email','area'))
-            ->join(array('t2' => 'auth_usuario'), 't1.pers_id = t2.pers_id', array('us_id'),'left')
-            ->join(array('t3' => 'auth_tabla_se'), new \Zend\Db\Sql\Expression("t3.princod = '002' and t3.secucod = t1.tipoper"), 
+            //->join(array('t2' => 'auth_usuario'), 't1.pers_id = t2.pers_id', array('us_id'),'left')
+            ->join(array('t3' => 'tabla_se'), new \Zend\Db\Sql\Expression("t3.princod = '002' and t3.secucod = t1.tipoper"), 
                 array('pert_id' => 'secucod','pert_nombre' => 'secudes'))
             ->where(array('t1.percod = ?' => $persCodigo))
             ->order(array('apepatper','apematper','nombreper'));
+        return $this->fetchRow($select);
+    }
+    
+    
+    /**
+     * Retorna los datos generales de un personal
+     * @param type $persCodigo
+     * @return type
+     */
+    public function getDataFirtsPersonalByPersCodes($persCodigo){
+        $select = $this->sql->select()->from(array('t1' => $this->_table))
+            ->columns(array('percod', 
+                'nombreper' => new \Zend\Db\Sql\Expression("dbo.WordCap(Lower(nombreper))"),
+                'apepatper' => new \Zend\Db\Sql\Expression("dbo.WordCap(Lower(apepatper))"),
+                'apematper' => new \Zend\Db\Sql\Expression("dbo.WordCap(Lower(apematper))"),                
+                'codigo','direccion','telefono','email','area'))
+            //->join(array('t2' => 'auth_usuario'), 't1.pers_id = t2.pers_id', array('us_id'),'left')
+            ->join(array('t3' => 'tabla_se'), new \Zend\Db\Sql\Expression("t3.princod = '" . \Auth\Entity\AuthPrincipalPr::COD_AREA ."' and t3.secucod = t1.tipoper"), 
+                array('pert_id' => 'secucod','pert_nombre' => 'secudes'))
+            ->order(array('apepatper','apematper','nombreper'));
+        $select->where->in('t1.percod', $persCodigo);
         return $this->fetchRow($select);
     }
     
@@ -138,9 +160,10 @@ class AuthPersonal extends AbstractRepository {
      */
     public function getListaPersonalByArId($arId){
         $select = $this->sql->select()->from(array('t1' => $this->_table))
-            ->columns(array('percod', 'nombreper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(nombreper,1)),SUBSTR(lower(nombreper),2))'),
-                'apepatper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apepatper,1)),SUBSTR(lower(apepatper),2))'),
-                'apematper' =>  new \Zend\Db\Sql\Expression('CONCAT(UPPER(LEFT(apematper,1)),SUBSTR(lower(apematper),2))'),
+            ->columns(array('percod', 
+                'nombreper' => new \Zend\Db\Sql\Expression("dbo.WordCap(Lower(nombreper))"),
+                'apepatper' => new \Zend\Db\Sql\Expression("dbo.WordCap(Lower(apepatper))"),
+                'apematper' => new \Zend\Db\Sql\Expression("dbo.WordCap(Lower(apematper))"),                
                 'codigo','direccion','telefono','email','area'))
             ->order(array('apepatper','apematper','nombreper'));
         if(!empty($arId)){

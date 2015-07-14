@@ -11,6 +11,7 @@ namespace Application\Controller;
 
 use Util\Controller\BaseController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 class ReporteController  extends BaseController {
     
@@ -52,7 +53,6 @@ class ReporteController  extends BaseController {
         $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
         $personal = $modelPersonal->getDataPersonalByPersCodigo($persCode);
         $dtaPersonal = $modelPersonal->getListaPersonalByArId($personal['area']);
-        
         $formFilter->setData(array(
             'anio_start' => date('Y'),
             'anio_end' => date('Y'),
@@ -88,12 +88,15 @@ class ReporteController  extends BaseController {
     
     public function personalGraficoAction(){
         $post = $this->params()->fromPost();
+        $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
         $data = $modelPersonal->getGraficoPersonalByCliente($post);
+        $personal = $modelPersonal->getDataFirtsPersonalByPersCodes($post['personal']);
         $viewModel = new ViewModel();
         $viewModel->setVariables(
             array(
                 'tipo' => $post['form_tipo'],
-                'post' => $post,
+                'data' => $data,
+                'personal' => $personal
             ))
             ->setTerminal(true);
         
