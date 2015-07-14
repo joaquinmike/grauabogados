@@ -37,7 +37,7 @@ class AuthPersonal extends AbstractRepository {
                     'nomcomper' => new \Zend\Db\Sql\Expression("dbo.wordCap(Lower(nomcomper))")))
                 //->join(array('t2' => 'auth_usuario'), 't1.percod = t2.percod', array('us_id'), 'left')
                 ->join(array('t3' => 'tabla_se'), new \Zend\Db\Sql\Expression("t3.princod = '002' and t3.secucod = t1.tipoper"), array('pert_id' => 'secucod', 'pert_nombre' => 'secudes'))
-                ->where(array('tipoper not in (?,?,?,?,?)' => array('008', '009', '010', '011', '012')))
+                ->where(array('tipoper in (?,?,?,?,?)' => array('001', '002', '005', '006', '007')))
                 ->order(array('tipoper', 'nomcomper'));
         if (!empty($filter['pers_estado'])) {
             $select->where(array('estado = ?' => $filter['pers_estado']));
@@ -70,25 +70,41 @@ class AuthPersonal extends AbstractRepository {
     }
 
     public function getGraficoPersonalByCliente($perCod, $fechaIni, $fechaFin) {
-        $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_cliente'))
+        $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_area_anomes'))
                 ->columns(array('cliente',
-                    'tiempo' => new \Zend\Db\Sql\Expression('sum(tiemponum)')))
-                ->where(array('percod = ?' => $perCod))
+                                'tiempo' => new \Zend\Db\Sql\Expression('sum(horas)')                    
+                    ))
+                ->where(array('abogado = ?' => $perCod))
                 ->where(array('anomes BETWEEN ? and ?' => array($fechaIni, $fechaFin)))
-                ->group(array('cliente'));
-        //echo $select->getSqlString();exit;
+                ->group(array('cliente'))                
+                ->quantifier('top 8')
+                ->order(array('tiempo desc')); 
+        //echo 'Personal <br>'.$select->getSqlString();exit;
         return $this->fetchAll($select);
     }
 
-    public function getGraficoPersonalByCategoria($areaCode, $fechaIni, $fechaFin) {
-        $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_cliente'))
-                ->columns(array('cliente',
-                    'tiempo' => new \Zend\Db\Sql\Expression('sum(tiemponum)')))
-                ->where(array('areacod  = ?' => $areaCode))
+    public function getGraficoPersonalByCategoria($areaCode, $fechaIni, $fechaFin) {       
+        $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_area_anomes'))                
+                ->columns(array('areades','cliente',                                
+                                'tiempo' => new \Zend\Db\Sql\Expression('sum(horas)')))
+                ->where(array('area  = ?' => $areaCode))
                 ->where(array('anomes BETWEEN ? and ?' => array($fechaIni, $fechaFin)))
-                ->group(array('cliente'))
-                ->order('cliente');
-        //echo $select->getSqlString();exit;
+                ->group(array('areades','cliente'))
+                ->quantifier('top 8')                
+                ->order(array('tiempo desc'));        
+        //echo 'Área: <br>'.$select->getSqlString();exit;
+        return $this->fetchAll($select);
+    }
+    
+    public function getGraficoByabogado($cliente, $fechaIni, $fechaFin) {       
+        $select = $this->sql->select()->from(array('t1' => 'v_grafico_horas_x_area_anomes'))                
+                ->columns(array('usucod',                                
+                                'tiempo' => new \Zend\Db\Sql\Expression('sum(horas)')))
+                ->where(array('cliente  = ?' => $cliente))
+                ->where(array('anomes BETWEEN ? and ?' => array($fechaIni, $fechaFin)))
+                ->group(array('usucod'))
+                ->order(array('tiempo desc'));        
+        //echo 'Abogados: <br>'.$select->getSqlString();exit;
         return $this->fetchAll($select);
     }
 

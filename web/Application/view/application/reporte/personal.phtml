@@ -11,22 +11,22 @@
             <div class="row">
                <div class="col-lg-12">
                    <div class="col-lg-6">
-                        <h2 class="text-primary">Área charts</h2>
-                        <h4>Horas x Cliente - <?php echo $this->nombre?></h4>
+                        <!--<h2 class="text-primary">Área charts</h2>-->
+                        <!--<h4>Horas x Cliente - <?php echo $this->nombre?></h4>-->
                    </div>
                    <div class="col-lg-6">
                        <div class="btn-group btn-group-sm pull-right">
                             <button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-arrow-down"></span> Tipo
+                                    <span class="glyphicon glyphicon-arrow-down"></span> Tipo Gráfico
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right animation-dock" role="menu">
                                 <li class="<?php echo ($tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) ? 'active' : ''?>">
-                                    <a href="/application/reporte/diagrama?<?php echo \Auth\Entity\AuthPersonal::getUrlReportePersonal($this->codigo,\Application\Entity\Functions::GRAFICO_CIRCULAR)?>&site=<?php echo \Application\Entity\Functions::SITE_PERSONAL?>">
+                                    <a href="/application/reporte/personal?<?php echo \Auth\Entity\AuthPersonal::getUrlReportePersonal($this->codigo,\Application\Entity\Functions::GRAFICO_CIRCULAR)?>&site=<?php echo \Application\Entity\Functions::SITE_PERSONAL?>&nom=<?php echo $this->abogado?>">
                                         Circular
                                     </a>
                                 </li>
                                  <li class="<?php echo ($tipo == \Application\Entity\Functions::GRAFICO_BARRAS) ? 'active' : ''?>">
-                                    <a href="/application/reporte/diagrama?<?php echo \Auth\Entity\AuthPersonal::getUrlReportePersonal($this->codigo,\Application\Entity\Functions::GRAFICO_BARRAS)?>&site=<?php echo \Application\Entity\Functions::SITE_PERSONAL?>">
+                                    <a href="/application/reporte/personal?<?php echo \Auth\Entity\AuthPersonal::getUrlReportePersonal($this->codigo,\Application\Entity\Functions::GRAFICO_BARRAS)?>&site=<?php echo \Application\Entity\Functions::SITE_PERSONAL?>&nom=<?php echo $this->abogado?>">
                                         Barras
                                     </a>
                                 </li>
@@ -39,16 +39,16 @@
                         <div class="card-body">
                            <?php if(!empty($this->data)) { ?>
                                 <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
-                                    <div id="morris-graph" class="height-7" data-colors="#2196F3"></div>
+                                    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                                 <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
-                                    <div id="morris-graph" class="height-6" data-colors="#9C27B0,#2196F3,#0aa89e,#FF9800"></div>
+                                    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>                                    
                                 <?php } ?>
                             <?php } else{ ?>
-                                <p>No hay data</p>
+                                <p>No hay información para mostrar</p>
                             <?php } ?>
                         </div><!--end .card-body -->
                     </div><!--end .card -->
-                    <em class="text-caption">Grouped bar chart</em>
+                    <!--<em class="text-caption">Grouped bar chart - Grau</em>-->
                 </div><!--end .col -->
             </div><!--end .row -->
         </div><!--end .section-body -->
@@ -58,38 +58,129 @@
 </div><!--end #content-->
 <!-- END CONTENT -->
 <?php if(!empty($this->data)) { ?>
-    <script src="<?php echo $this->server('static', 'assets/js/libs/raphael/raphael-min.js', true)?>"></script>
-    <script src="<?php echo $this->server('static', 'assets/js/libs/morris.js/morris.min.js', true)?>"></script>
+    <!--Grafico Diter-->
+    <script src="<?php echo $this->server('static', 'assets/js/highcharts/js/highcharts.js', true)?>"></script>
+    <script src="<?php echo $this->server('static', 'assets/js/highcharts/js/modules/exporting.js', true)?>"></script>    
+    <script src="<?php echo $this->server('static', 'assets/js/highcharts/js/modules/data.js', true)?>"></script>
+    <script src="<?php echo $this->server('static', 'assets/js/highcharts/js/modules/drilldown.js', true)?>"></script>
+   
     <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
         <script type="text/javascript">
-            Morris.Bar({
-                element: 'morris-graph',
-                data: [
-                    <?php foreach ($this->data as $value) { ?>
-                        {x: '<?php echo $value['cliente']?>', y: <?php echo (float)$value['tiempo']?>},
-                    <?php } ?>
-                ],
-                xkey: 'x',
-                ykeys: ['y'],
-                labels: ['Y'],
-                barColors: $('#morris-graph').data('colors').split(',')
-            });
+            $(function () {
+                // Create the chart
+                $('#container').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: '<?php echo $this->abogado?>'
+                    },
+                    subtitle: {
+                        text: '<?php echo $this->nombre?>'
+                    },
+                    xAxis: {
+                        type: 'category'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total porcentaje en Tiempo'
+                        }
 
-        </script>
-    <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
-        <script type="text/javascript">
-            Morris.Donut({
-                element: 'morris-graph',
-                data: [
-                    <?php foreach ($this->data as $value) { ?>
-                        {value: <?php echo $value['tiempo']?>, label: '<?php echo $value['cliente']?>', formatted: '<?php echo $value['cliente']?> - <?php echo number_format($value['tiempo'], 2)?>'},
-                    <?php } ?>
-                ],
-                colors: $('#morris-graph').data('colors').split(','),
-                formatter: function (x, data) {
-                    return data.formatted;
-                }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y}'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        headerFormat: '',//'<span style="font-size:11px">{series.name} </span><br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y} Horas</b> <br/>'
+                    },
+
+                    series: [{
+                        name: "Cliente",
+                        colorByPoint: true,
+                        data: [            
+                        <?php foreach ($this->data as $value) { ?>
+                            {name: "<?php echo $value['cliente'];?>", y: <?php echo $value['tiempo'];?>,drilldown: "<?php echo $value['cliente'];?>"},                         
+                        <?php } ?>
+                        ]
+                    }],
+                    drilldown: {
+                        series: [
+                        <?php foreach ($this->data as $value) { ?>
+                        {name: "<?php echo $value['cliente'];?>",id: "<?php echo $value['cliente'];?>",
+                            data: [
+                                ["v11.0",24.13],
+                                ["v8.0",17.2],
+                                ["v9.0",8.11],
+                                ["v10.0",5.33],
+                                ["v6.0",1.06],
+                                ["v7.0",0.5]
+                            ]
+                        },  
+                        <?php } ?>
+                        ]
+                    }
+                });
             });
-        </script>
+	</script>
+    <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
+        
+        <script type="text/javascript">
+            $(function () {
+                $('#container').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: '<?php echo $this->abogado?>'
+                    },
+                    subtitle: {
+                        text: '<?php echo $this->nombre?>'
+                    }, 
+                    tooltip: {
+                        //pointFormat: '{series.name}: <b>{point.y} Horas</b>'
+                        pointFormat: '<b>{point.y} Horas ({point.percentage:.1f}%)</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name} </b> {point.y}',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: "Tiempo",
+                        colorByPoint: true,
+                        data: [                
+                                <?php foreach ($this->data as $value) { ?>
+                                    {name: "<?php echo $value['cliente'];?>", y: <?php echo $value['tiempo'];?>},                         
+                                <?php } ?>
+                              ]
+                    }]
+                });                                
+            });
+        </script> 
+        
+        
     <?php } ?>
 <?php } ?>

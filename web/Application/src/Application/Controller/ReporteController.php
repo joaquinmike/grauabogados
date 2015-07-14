@@ -15,24 +15,29 @@ use Zend\View\Model\ViewModel;
 class ReporteController  extends BaseController {
     
     public function diagramaAction(){
-        $tipo = $this->params()->fromQuery('tipo', \Application\Entity\Functions::GRAFICO_CIRCULAR); 
+        $tipo     = $this->params()->fromQuery('tipo', \Application\Entity\Functions::GRAFICO_CIRCULAR); 
         $persCode = $this->params()->fromQuery('codigo', NULL); 
-        $site = $this->params()->fromQuery('site', NULL); 
+        $site     = $this->params()->fromQuery('site', NULL); 
+        $nom = $this->params()->fromQuery('nom', NULL);
         
         $date = new \DateTime();
         //Fechas
-        $fechaIni = $date->format('Y') . '07';
-        $fechaFin = $date->format('Ym');
+        $fechaIni = $date->format('Y') . '06';
+        $fechaFin = $date->format('Y') . '06';
+        //$fechaIni = $date->format('Ym');
+        //$fechaFin = $date->format('Ym');
         $nombre = \Application\Entity\Functions::getNombreMesByMesId($date->format('m')) . ' ' . $date->format('Y');
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
         $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
         $data = $modelPersonal->getGraficoPersonalByCategoria($persCode,$fechaIni,$fechaFin);
+        
         return new ViewModel(array(
             'tipo' => $tipo,
             'site' => $site,
             'data' => $data,
             'nombre' => $nombre,
             'codigo' => $persCode,
+            'abogado'=> $nom,
         ));
     }
     
@@ -40,11 +45,14 @@ class ReporteController  extends BaseController {
         $tipo = $this->params()->fromQuery('tipo', \Application\Entity\Functions::GRAFICO_CIRCULAR); 
         $persCode = $this->params()->fromQuery('codigo', NULL); 
         $site = $this->params()->fromQuery('site', NULL); 
+        $nom = $this->params()->fromQuery('nom', NULL); 
         
         $date = new \DateTime();
         //Fechas
-        $fechaIni = $date->format('Y') . '07';
-        $fechaFin = $date->format('Ym');
+        $fechaIni = $date->format('Y') . '06';
+        $fechaFin = $date->format('Y') . '06';
+        //$fechaIni = $date->format('Ym');
+        //$fechaFin = $date->format('Ym');
         $nombre = \Application\Entity\Functions::getNombreMesByMesId($date->format('m')) . ' ' . $date->format('Y');
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
         $modelPersonal = $this->getServiceLocator()->get('Model\AuthPersonal');
@@ -55,6 +63,7 @@ class ReporteController  extends BaseController {
             'data' => $data,
             'nombre' => $nombre,
             'codigo' => $persCode,
+            'abogado'=> $nom,
         ));
     }    
 }

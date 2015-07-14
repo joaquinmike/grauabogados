@@ -1,0 +1,97 @@
+<!-- BEGIN CONTENT-->
+<div id="content">
+    <section>
+        <div class="section-header">
+            <ol class="breadcrumb">
+                 <?php echo \Application\Entity\Functions::getBreadCrumb($this->site, 'Grafico')?>
+            </ol>
+        </div><!--end .section-header -->
+        <div class="section-body contain-lg">
+
+            <div class="row">
+               <div class="col-lg-12">
+                   <div class="col-lg-6">
+                        <h2 class="text-primary">Área charts - Gráficos</h2>
+                        <h4>Horas x Cliente - <?php echo $this->nombre?></h4>
+                   </div>
+                   <div class="col-lg-6">
+                       <div class="btn-group btn-group-sm pull-right">
+                            <button type="button" class="btn btn-default-light dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> Tipo
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right animation-dock" role="menu">
+                                <li class="<?php echo ($tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) ? 'active' : ''?>">
+                                    <a href="/application/reporte/diagrama?<?php echo \Auth\Entity\AuthPersonal::getUrlReportePersonal($this->codigo,\Application\Entity\Functions::GRAFICO_CIRCULAR)?>&site=<?php echo \Application\Entity\Functions::SITE_PERSONAL?>">
+                                        Circular
+                                    </a>
+                                </li>
+                                 <li class="<?php echo ($tipo == \Application\Entity\Functions::GRAFICO_BARRAS) ? 'active' : ''?>">
+                                    <a href="/application/reporte/diagrama?<?php echo \Auth\Entity\AuthPersonal::getUrlReportePersonal($this->codigo,\Application\Entity\Functions::GRAFICO_BARRAS)?>&site=<?php echo \Application\Entity\Functions::SITE_PERSONAL?>">
+                                        Barras
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                   </div>
+                </div>
+                <div class="col-lg-offset-1 col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <?php if(!empty($this->data)) { ?>
+                                <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
+                                    <div id="morris-graph" class="height-7" data-colors="#2196F3"></div>
+                                <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
+                                    <div id="morris-graph" class="height-6" data-colors="#9C27B0,#2196F3,#0aa89e,#FF9800"></div>
+                                <?php } ?>
+                            <?php } else{ ?>
+                                <p>No hay data</p>
+                            <?php } ?>
+                        </div><!--end .card-body -->
+                    </div><!--end .card -->
+                    <em class="text-caption">Grouped bar chart</em>
+                </div><!--end .col -->
+            </div><!--end .row -->
+
+
+        </div><!--end .section-body -->
+    </section>
+
+
+</div><!--end #content-->
+<!-- END CONTENT -->
+<?php if(!empty($this->data)) { ?>
+    <script src="<?php echo $this->server('static', 'assets/js/libs/raphael/raphael-min.js', true)?>"></script>
+    <script src="<?php echo $this->server('static', 'assets/js/libs/morris.js/morris.min.js', true)?>"></script>
+    <?php if($this->tipo == \Application\Entity\Functions::GRAFICO_BARRAS) { ?>
+        <script type="text/javascript">
+            Morris.Bar({
+                element: 'morris-graph',
+                data: [
+                    <?php foreach ($this->data as $value) { ?>
+                        {x: '<?php echo $value['cliente']?>', y: <?php echo (float)$value['tiempo']?>},
+                    <?php } ?>
+                ],
+                xkey: 'x',
+                ykeys: ['y'],
+                labels: ['Y'],
+                barColors: $('#morris-graph').data('colors').split(',')
+            });
+
+        </script>
+    <?php }elseif($this->tipo == \Application\Entity\Functions::GRAFICO_CIRCULAR) { ?>
+        <script type="text/javascript">
+            Morris.Donut({
+                element: 'morris-graph',
+                data: [
+                    <?php foreach ($this->data as $value) { ?>
+                        {value: <?php echo $value['tiempo']?>, label: '<?php echo $value['cliente']?>', formatted: '<?php echo $value['usucod']?> - <?php echo number_format($value['tiempo'], 2)?>'},
+                    <?php } ?>
+                ],
+                colors: $('#morris-graph').data('colors').split(','),
+                formatter: function (x, data) {
+                    return data.formatted;
+                }
+            });
+        </script>
+    <?php } ?>
+<?php } ?>

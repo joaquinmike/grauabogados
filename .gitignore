@@ -14,3 +14,7 @@ vendor/bin
 *.local.php
 /config/autoload/
 /common/Authentication/config/dbsession.global.php.dist
+/public/assets/Highcharts-4.1.7/exporting-server/java/highcharts-export/highcharts-export-convert/target/
+/public/assets/Highcharts-4.1.7/exporting-server/java/highcharts-export/highcharts-export-web/target/
+/public/Highcharts/exporting-server/java/highcharts-export/highcharts-export-convert/target/
+/public/Highcharts/exporting-server/java/highcharts-export/highcharts-export-web/target/
