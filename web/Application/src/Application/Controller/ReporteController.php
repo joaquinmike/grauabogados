@@ -41,7 +41,9 @@ class ReporteController  extends BaseController {
         $persCode = $this->params()->fromQuery('codigo', NULL); 
         $site = $this->params()->fromQuery('site', NULL); 
         \Auth\Entity\AuthPersonal::removeFilterPersonal();
+        $formFilter = $this->getServiceLocator()->get('Form\FormReportePersonal');
         return new ViewModel(array(
+            'formFilter' => $formFilter,
             'tipo' => $tipo,
             'site' => $site,
             'nombre' => $nombre,

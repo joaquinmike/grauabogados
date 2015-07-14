@@ -5,7 +5,6 @@
  *
  * @author joaquinmike
  */
-
 namespace Application\Entity;
 
 class Functions {

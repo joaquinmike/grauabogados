@@ -6,7 +6,7 @@ use Util\Form\BaseForm;
 /**
  * Description of FormUsuarioFiltro
  *
- * @author joaquin
+ * @author joaquinmike
  */
 class FormUsuarioFiltro extends BaseForm {
     //put your code here
