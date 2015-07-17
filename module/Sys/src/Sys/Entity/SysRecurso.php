@@ -29,7 +29,7 @@ class SysRecurso {
                 $result[$value['recurso_id']] = $value;
             }else{
                 $value['recurso_link'] = str_replace(':', '/', $value['recurso_uri']);
-                $value['recurso_uri'] = str_replace('adm', 'application', $value['recurso_uri']);
+                //$value['recurso_uri'] = str_replace('adm', 'application', $value['recurso_uri']);
                 $result[$value['rec_recurso_id']]['submenu'][$value['recurso_id']] = $value;
             }
         }

@@ -85,7 +85,6 @@ class FormReportePersonal extends BaseForm {
             ),
         ));
          
-         
         $modelPrincipal = $service->get('Model\AuthPrincipalPr');
         $dtaArea = $modelPrincipal->getDataFiltroByCode(\Auth\Entity\AuthPrincipalPr::COD_AREA);
         $dtaArea = \Application\Entity\Functions::getFormatSelectArray($dtaArea, array('id' => 'secucod','value' => 'secudes'));

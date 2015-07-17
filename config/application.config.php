@@ -13,6 +13,7 @@ return array(
         'Yoson',
         'Sys',
         'Application', 
+        'Admin', 
     ),
     'module_listener_options' => array(
         'module_paths' => array(

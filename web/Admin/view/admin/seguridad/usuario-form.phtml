@@ -1,0 +1,87 @@
+<!-- BEGIN CONTENT-->
+<div id="content">
+    <!-- BEGIN BLANK SECTION -->
+    <section>
+        <div class="section-header">
+            <ol class="breadcrumb">
+                <li><a href="/">inicio</a></li>
+                <li class="">Seguridad</li>
+                <li class="active">Usuario</li>
+            </ol>
+        </div><!--end .section-header -->
+        <div class="section-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="text-primary">Nuevo usuario</h3>
+                </div><!--end .col -->
+                <div class="col-lg-8">
+                    <article class="margin-bottom-xxl">
+                        <p class="lead">
+                            Basic form elements are text fields that allow the user to input text or select a value.
+                            They can be single line or multi-line, and can have an icon.
+                        </p>
+                    </article>
+                </div><!--end .col -->
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <form role="form form-validate" class="form-horizontal" method="post" action="">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="regular13">Usuario</label>
+                                    <div class="col-sm-10">
+                                        <?php echo $this->formRow($this->form->get('us_usuario')) ?>
+                                        <div class="form-control-line"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="password13">Contraseña</label>
+                                    <div class="col-sm-10">
+                                        <?php echo $this->formRow($this->form->get('us_password')) ?>
+                                        <div class="form-control-line"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="placeholder13">Rol</label>
+                                    <div class="col-sm-10">
+                                        <?php echo $this->formRow($this->form->get('us_rol')) ?>
+                                        <div class="form-control-line"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="placeholder13">Area</label>
+                                    <div class="col-sm-10">
+                                        <?php echo $this->formRow($this->form->get('us_area')) ?>
+                                        <div class="form-control-line"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="placeholder13">Personal</label>
+                                    <div class="col-sm-10">
+                                        <?php echo $this->formRow($this->form->get('us_persona')) ?>
+                                        <div class="form-control-line"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Estado</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">Activo</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-actionbar">
+                                <div class="card-actionbar-row">
+                                    <button class="btn btn-flat btn-danger ink-reaction" type="button">Cancelar</button>
+                                    <button class="btn btn-flat btn-primary ink-reaction" type="submit">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- BEGIN BLANK SECTION -->
+</div>
+<script src="<?php echo $this->server('static', 'assets/js/libs/jquery-validation/dist/jquery.validate.min.js', true)?>"></script>
